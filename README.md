@@ -256,10 +256,6 @@ Before release, verify:
 **Mansas Moguls L.L.C-FZ**  
 Dubai, United Arab Emirates
 
-Email: [intelligence@mansasmogules.com](mailto:intelligence@mansasmogules.com)  
-Phone: [+971 56 137 6535](tel:+971561376535)  
-WhatsApp: [Start a conversation](https://wa.me/971561376535)
-
 ## Rights
 
 Unless an accompanying license grants otherwise, original project code, branding, and content are reserved by their respective rights holders.
