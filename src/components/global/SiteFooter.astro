@@ -1,0 +1,306 @@
+---
+import BrandLogo from './BrandLogo.astro';
+import { site } from '../../config/site';
+import { mainNavigation } from '../../data/navigation';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const divisionLinks = [
+  { label: 'Moguls Digital', href: `/${locale}/services/digital/` },
+  { label: 'Moguls AI', href: `/${locale}/services/ai/` },
+  { label: 'Moguls Growth', href: `/${locale}/services/growth/` },
+  { label: 'Moguls Creative', href: `/${locale}/services/creative/` },
+  { label: 'Moguls Strategy', href: `/${locale}/services/strategy/` },
+];
+---
+
+<footer class="site-footer" role="contentinfo">
+  <div class="container-wide">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <BrandLogo locale={locale} variant="footer" />
+        <p class="footer-tagline">{site.tagline}</p>
+        <p class="footer-summary">
+          Digital architecture, artificial intelligence, and strategic design for high-growth enterprises in Dubai and internationally.
+        </p>
+        <div class="footer-location-badge">
+          <span class="gold-dot" aria-hidden="true"></span>
+          <span>{site.location}</span>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <h2 class="footer-heading">Divisions</h2>
+        <ul class="footer-list">
+          {
+            divisionLinks.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h2 class="footer-heading">Navigation</h2>
+        <ul class="footer-list">
+          {
+            mainNavigation.map((item) => (
+              <li>
+                <a href={`/${locale}/${item.href}`}>{item.label}</a>
+              </li>
+            ))
+          }
+          <li>
+            <a href={`/${locale}/process/`}>Process</a>
+          </li>
+          <li>
+            <a href={`/${locale}/solutions/`}>Solutions</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-contact-col">
+        <h2 class="footer-heading">Direct Contact</h2>
+        <ul class="footer-contact-list">
+          <li>
+            <span class="contact-label">Email</span>
+            <a href={`mailto:${site.email}`} class="contact-val">{site.email}</a>
+          </li>
+          <li>
+            <span class="contact-label">Phone</span>
+            <a href={`tel:${site.phone}`} class="contact-val">{site.phoneDisplay}</a>
+          </li>
+          <li>
+            <span class="contact-label">WhatsApp</span>
+            <a
+              href={site.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-val whatsapp-link"
+            >
+              Start WhatsApp Chat →
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <div class="footer-legal-id">
+        <span>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span>{site.publicBrand}</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span>{site.location}</span>
+      </div>
+
+      <nav class="footer-legal-nav" aria-label="Legal and policy navigation">
+        <a href={`/${locale}/legal/privacy/`}>Privacy Policy</a>
+        <a href={`/${locale}/legal/terms/`}>Terms of Service</a>
+        <a href={`/${locale}/legal/cookies/`}>Cookies</a>
+        <a href={`/${locale}/legal/accessibility/`}>Accessibility</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: #0d0d10;
+    color: var(--color-ivory, #F7F5F0);
+    border-top: 1px solid rgba(247, 245, 240, 0.08);
+    padding-block: clamp(2.75rem, 5vw, 3.75rem) clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1040px) {
+    .footer-top {
+      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+      gap: 3rem;
+    }
+  }
+
+  .footer-brand-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .footer-tagline {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-ivory, #F7F5F0);
+    margin: 0;
+  }
+
+  .footer-summary {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: #8E8D9A;
+    margin: 0;
+    max-width: 36ch;
+  }
+
+  .footer-location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #8E8D9A;
+    margin-top: 0.35rem;
+  }
+
+  .gold-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background-color: var(--color-gold, #B99A62);
+    display: inline-block;
+  }
+
+  .footer-links-col,
+  .footer-contact-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .footer-heading {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-ivory, #F7F5F0);
+    margin: 0;
+  }
+
+  .footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-list a {
+    color: #8E8D9A;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 180ms ease;
+  }
+
+  .footer-list a:hover {
+    color: var(--color-ivory, #F7F5F0);
+  }
+
+  .footer-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-contact-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .contact-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #666671;
+    font-weight: 600;
+  }
+
+  .contact-val {
+    color: #8E8D9A;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 180ms ease;
+    word-break: break-all;
+  }
+
+  .contact-val:hover {
+    color: #7456F2;
+  }
+
+  .whatsapp-link {
+    color: #9A82FC;
+  }
+
+  .footer-divider {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(247, 245, 240, 0.04) 0%, rgba(247, 245, 240, 0.12) 50%, rgba(247, 245, 240, 0.04) 100%);
+    margin-block: 2.25rem 1.5rem;
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    font-size: 0.8rem;
+    color: #666671;
+  }
+
+  @media (min-width: 768px) {
+    .footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .footer-legal-id {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .sep {
+    opacity: 0.4;
+  }
+
+  .footer-legal-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .footer-legal-nav a {
+    color: #8E8D9A;
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+
+  .footer-legal-nav a:hover {
+    color: var(--color-ivory, #F7F5F0);
+  }
+</style>

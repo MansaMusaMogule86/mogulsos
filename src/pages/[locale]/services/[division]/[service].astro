@@ -1,0 +1,596 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { divisions } from '../../../../data/divisions';
+import { services, getServices, type Service } from '../../../../data/services';
+import { enabledLocales, type Locale } from '../../../../i18n/config';
+
+export function getStaticPaths() {
+  return enabledLocales.flatMap((locale) =>
+    services.map((service) => ({
+      params: { locale, division: service.division, service: service.slug },
+      props: { service },
+    }))
+  );
+}
+
+const { service } = Astro.props as { service: Service };
+const { locale = 'en' } = Astro.params as { locale: Locale };
+const divisionRecord = divisions[service.division];
+const divisionServices = getServices(service.division);
+
+const relatedServices = service.relatedSlugs
+  .map((slug) => services.find((s) => s.slug === slug))
+  .filter((s): s is Service => Boolean(s));
+
+const inquiryHref = `/${locale}/contact/?division=${encodeURIComponent(
+  divisionRecord.title
+)}&service=${encodeURIComponent(service.title)}#project-brief`;
+---
+
+<BaseLayout
+  title={`${service.title} — ${divisionRecord.title}`}
+  description={service.description}
+  locale={locale}
+>
+  <!-- 1. Specific Headline, Introduction & Illustrative Blueprint (Dark Section) -->
+  <section class="section-dark service-detail-hero">
+    <div class="container-wide">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href={`/${locale}/`}>Home</a>
+        <span aria-hidden="true">/</span>
+        <a href={`/${locale}/services/`}>Services</a>
+        <span aria-hidden="true">/</span>
+        <a href={`/${locale}/services/${service.division}/`}>{divisionRecord.title}</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{service.title}</span>
+      </nav>
+
+      <div class="service-hero-split">
+        <div class="service-hero-copy">
+          <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+            <span class="pill-dark">{divisionRecord.title}</span>
+            <span class="eyebrow-label" style="color: var(--color-gold);">
+              {service.title}
+            </span>
+          </div>
+
+          <h1 class="page-display" style="margin-top: 0.75rem;">
+            {service.headline}
+          </h1>
+
+          <div class="service-intro-paragraphs">
+            <p class="lead-copy" style="color: #dcdaf5; margin: 0;">
+              {service.introduction[0]}
+            </p>
+            <p class="body-copy" style="color: #c2c0ce; margin: 0;">
+              {service.introduction[1]}
+            </p>
+          </div>
+
+          <div class="service-hero-actions">
+            <a href={inquiryHref} class="btn btn-primary">
+              Commission {service.title}
+            </a>
+            <a href="#deliverables-section" class="btn btn-secondary-dark">
+              Review Deliverables & Scope
+            </a>
+          </div>
+        </div>
+
+        <!-- Original Illustrative Capability Blueprint -->
+        <aside class="service-blueprint-card" aria-label={`Capability illustration for ${service.title}`}>
+          <div class="blueprint-top">
+            <span class="blueprint-tag">Capability illustration</span>
+            <span class="blueprint-div">{divisionRecord.title}</span>
+          </div>
+
+          <div class="blueprint-svg-wrap">
+            <svg viewBox="0 0 440 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="16" y="16" width="408" height="248" rx="14" fill="#141418" stroke="#EAE4FF" stroke-opacity="0.16" />
+              <line x1="220" y1="36" x2="220" y2="244" stroke="#7456F2" stroke-opacity="0.25" stroke-dasharray="4 4" />
+              <line x1="36" y1="140" x2="404" y2="140" stroke="#7456F2" stroke-opacity="0.25" stroke-dasharray="4 4" />
+
+              <!-- Node 1 -->
+              <rect x="36" y="42" width="164" height="76" rx="10" fill="#1C1C23" stroke="#7456F2" stroke-width="1.4" />
+              <text x="52" y="66" fill="#B99A62" font-size="10" font-weight="bold" font-family="sans-serif">STAGE 01</text>
+              <text x="52" y="90" fill="#F7F5F0" font-size="12" font-weight="600" font-family="sans-serif">{service.visualNodes[0]}</text>
+
+              <!-- Node 2 -->
+              <rect x="240" y="42" width="164" height="76" rx="10" fill="#1C1C23" stroke="#EAE4FF" stroke-opacity="0.3" />
+              <text x="256" y="66" fill="#EAE4FF" font-size="10" font-weight="bold" font-family="sans-serif">STAGE 02</text>
+              <text x="256" y="90" fill="#F7F5F0" font-size="12" font-weight="600" font-family="sans-serif">{service.visualNodes[1]}</text>
+
+              <!-- Node 3 -->
+              <rect x="36" y="162" width="164" height="76" rx="10" fill="#1C1C23" stroke="#EAE4FF" stroke-opacity="0.3" />
+              <text x="52" y="186" fill="#EAE4FF" font-size="10" font-weight="bold" font-family="sans-serif">STAGE 03</text>
+              <text x="52" y="210" fill="#F7F5F0" font-size="12" font-weight="600" font-family="sans-serif">{service.visualNodes[2]}</text>
+
+              <!-- Node 4 -->
+              <rect x="240" y="162" width="164" height="76" rx="10" fill="#1C1C23" stroke="#B99A62" stroke-width="1.4" />
+              <text x="256" y="186" fill="#B99A62" font-size="10" font-weight="bold" font-family="sans-serif">STAGE 04</text>
+              <text x="256" y="210" fill="#F7F5F0" font-size="12" font-weight="600" font-family="sans-serif">{service.visualNodes[3]}</text>
+
+              <!-- Connecting Center Hub -->
+              <circle cx="220" cy="140" r="18" fill="#7456F2" />
+              <circle cx="220" cy="140" r="6" fill="#F7F5F0" />
+            </svg>
+          </div>
+
+          <div class="blueprint-footer">
+            <span>Architecture Flow: {service.visualNodes.join(' → ')}</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Who It Is For & Problems It Addresses (Warm Ivory Section) -->
+  <section class="section-ivory">
+    <div class="container-wide">
+      <div class="audience-problems-grid">
+        <div class="card-ivory">
+          <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+            Ideal Fit
+          </span>
+          <h2 class="subsection-heading" style="margin-top: 0.45rem;">
+            Who This Service Is For
+          </h2>
+          <ul class="check-list" style="margin-top: 1.15rem;">
+            {service.whoItIsFor.map((item) => (
+              <li>
+                <span class="check-icon" aria-hidden="true">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="card-ivory">
+          <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+            Diagnostic Focus
+          </span>
+          <h2 class="subsection-heading" style="margin-top: 0.45rem;">
+            Problems It Addresses
+          </h2>
+          <ul class="problem-list" style="margin-top: 1.15rem;">
+            {service.problemsAddressed.map((prob) => (
+              <li>
+                <span class="prob-icon" aria-hidden="true">→</span>
+                <span>{prob}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Concrete Deliverables (Warm Ivory Muted Section) -->
+  <section id="deliverables-section" class="section-ivory-muted" aria-labelledby="deliverables-heading">
+    <div class="container-wide">
+      <div class="editorial-split" style="margin-bottom: 2.5rem; align-items: end;">
+        <div>
+          <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+            Tangible Outputs
+          </span>
+          <h2 id="deliverables-heading" class="section-heading" style="margin-top: 0.45rem;">
+            Concrete Deliverables
+          </h2>
+        </div>
+        <p style="margin: 0; color: var(--color-slate-dark);">
+          Every {service.title} engagement produces documented, actionable deliverables your organization owns and operates.
+        </p>
+      </div>
+
+      <div class="deliverables-grid">
+        {service.deliverables.map((deliv, index) => (
+          <article class="card-ivory deliverable-card">
+            <span class="deliv-num">0{index + 1}</span>
+            <h3 class="card-heading" style="margin-top: 0.5rem;">
+              {deliv.title}
+            </h3>
+            <p style="margin: 0.45rem 0 0; font-size: 0.92rem; color: var(--color-slate-dark); line-height: 1.58;">
+              {deliv.detail}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Process & Scope Considerations (Dark Elevated Section) -->
+  <section class="section-dark-elevated" aria-labelledby="process-scope-heading">
+    <div class="container-wide">
+      <div class="process-scope-split">
+        <!-- Process Column -->
+        <div>
+          <span class="eyebrow-label" style="color: var(--color-gold);">
+            Execution Sequence
+          </span>
+          <h2 id="process-scope-heading" class="section-heading" style="margin-top: 0.45rem; margin-bottom: 1.75rem;">
+            How We Deliver {service.title}
+          </h2>
+
+          <ol class="service-process-list">
+            {service.processSteps.map((step, i) => (
+              <li class="service-process-step">
+                <div class="step-badge">0{i + 1}</div>
+                <div>
+                  <h3 class="card-heading" style="color: var(--color-ivory);">
+                    {step.title}
+                  </h3>
+                  <p style="margin: 0.35rem 0 0; color: #c4c2d2; font-size: 0.925rem;">
+                    {step.detail}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <!-- Scope Considerations Card -->
+        <div class="card-dark scope-card">
+          <span class="eyebrow-label" style="color: var(--color-lavender);">
+            Scoping & Boundaries
+          </span>
+          <h3 class="subsection-heading" style="margin-top: 0.5rem;">
+            Scope Considerations
+          </h3>
+          <p style="color: #c2c0ce; font-size: 0.9rem; margin: 0.5rem 0 1.25rem;">
+            To keep timelines and budgets predictable, we confirm the following boundaries during initial discovery:
+          </p>
+
+          <ul class="scope-notes-list">
+            {service.scopeConsiderations.map((note) => (
+              <li>{note}</li>
+            ))}
+          </ul>
+
+          <div class="scope-cta-box">
+            <p style="margin: 0 0 0.85rem; font-size: 0.88rem; color: #EAE4FF; font-weight: 500;">
+              Ready to scope {service.title} for your organization in Dubai?
+            </p>
+            <a href={inquiryHref} class="btn btn-primary" style="width: 100%;">
+              Inquire About {service.title} →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Four Service-Specific FAQs & Related Services (Warm Ivory Section) -->
+  <section class="section-ivory" aria-labelledby="service-faq-heading">
+    <div class="container-wide">
+      <div class="editorial-split">
+        <div>
+          <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+            Common Questions
+          </span>
+          <h2 id="service-faq-heading" class="section-heading" style="margin-top: 0.45rem;">
+            Frequently Asked Questions
+          </h2>
+          <p style="color: var(--color-slate-dark); margin-top: 0.75rem;">
+            Practical answers regarding {service.title} scope, timelines, and handover.
+          </p>
+        </div>
+
+        <div class="faq-stack">
+          {service.faqs.map((faq) => (
+            <details class="faq-item" open>
+              <summary class="faq-question">{faq.q}</summary>
+              <p class="faq-answer">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <!-- Related Services -->
+      <div class="related-services-block">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1rem; margin-bottom: 1.75rem;">
+          <div>
+            <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+              Connected Capabilities
+            </span>
+            <h2 class="subsection-heading" style="margin-top: 0.4rem;">
+              Related Services
+            </h2>
+          </div>
+          <a href={`/${locale}/services/${service.division}/`} style="font-family: var(--font-display); font-weight: 700; color: var(--color-violet); text-decoration: none; font-size: 0.9rem;">
+            All {divisionRecord.title} Services ({divisionServices.length}) →
+          </a>
+        </div>
+
+        <div class="grid-3">
+          {relatedServices.map((rel) => (
+            <a
+              href={`/${locale}/services/${rel.division}/${rel.slug}/`}
+              class="card-ivory"
+              style="display: flex; flex-direction: column; gap: 0.5rem;"
+            >
+              <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-slate);">
+                {divisions[rel.division].title}
+              </span>
+              <h3 class="card-heading">{rel.title}</h3>
+              <p style="margin: 0; font-size: 0.88rem; color: var(--color-slate-dark);">
+                {rel.description}
+              </p>
+              <span style="margin-top: auto; padding-top: 0.6rem; font-family: var(--font-display); font-size: 0.84rem; font-weight: 700; color: var(--color-violet);">
+                View Service →
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .breadcrumb-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: #a8a6b5;
+  }
+
+  .breadcrumb-nav a {
+    color: #d2d0de;
+    text-decoration: none;
+  }
+
+  .breadcrumb-nav a:hover {
+    color: var(--color-ivory);
+    text-decoration: underline;
+  }
+
+  .service-hero-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-top: 1.75rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .service-hero-split {
+      grid-template-columns: 1.12fr 0.88fr;
+    }
+  }
+
+  .service-intro-paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-block: 1.25rem 1.75rem;
+  }
+
+  .service-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .service-blueprint-card {
+    background: #1C1C23;
+    border: 1px solid rgba(247, 245, 240, 0.14);
+    border-radius: 1.35rem;
+    overflow: hidden;
+  }
+
+  .blueprint-top,
+  .blueprint-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.15rem;
+    font-size: 0.74rem;
+    background: rgba(20, 20, 24, 0.7);
+  }
+
+  .blueprint-top {
+    border-bottom: 1px solid rgba(247, 245, 240, 0.08);
+  }
+
+  .blueprint-footer {
+    border-top: 1px solid rgba(247, 245, 240, 0.08);
+    color: #b4b2c2;
+  }
+
+  .blueprint-tag {
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(116, 86, 242, 0.22);
+    color: var(--color-lavender);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .blueprint-div {
+    color: var(--color-gold);
+    font-weight: 600;
+  }
+
+  .blueprint-svg-wrap {
+    padding: 0.85rem;
+  }
+
+  .blueprint-svg-wrap svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .audience-problems-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .audience-problems-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .check-list,
+  .problem-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .check-list li,
+  .problem-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--color-ink);
+    line-height: 1.55;
+  }
+
+  .check-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: var(--color-lavender);
+    color: var(--color-violet-deep);
+    font-weight: 800;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  .prob-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: rgba(20, 20, 24, 0.08);
+    color: var(--color-ink);
+    font-weight: 800;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 1.25rem;
+  }
+
+  .deliv-num {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--color-violet);
+    letter-spacing: 0.08em;
+  }
+
+  .process-scope-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 960px) {
+    .process-scope-split {
+      grid-template-columns: 1.15fr 0.85fr;
+    }
+  }
+
+  .service-process-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+  }
+
+  .service-process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    background: rgba(20, 20, 24, 0.65);
+    border: 1px solid rgba(247, 245, 240, 0.1);
+  }
+
+  .step-badge {
+    padding: 0.35rem 0.65rem;
+    border-radius: 0.5rem;
+    background: rgba(116, 86, 242, 0.22);
+    border: 1px solid rgba(116, 86, 242, 0.5);
+    color: var(--color-lavender);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .scope-notes-list {
+    margin: 0 0 1.5rem;
+    padding-left: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: #dad8e6;
+    line-height: 1.55;
+  }
+
+  .scope-cta-box {
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(247, 245, 240, 0.12);
+  }
+
+  .faq-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid rgba(20, 20, 24, 0.1);
+    border-radius: 1rem;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .faq-question {
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 650;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+
+  .faq-answer {
+    margin: 0.75rem 0 0;
+    font-size: 0.925rem;
+    color: var(--color-slate-dark);
+    line-height: 1.62;
+  }
+
+  .related-services-block {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(20, 20, 24, 0.1);
+  }
+</style>

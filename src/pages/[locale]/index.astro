@@ -1,0 +1,12 @@
+---
+import HomePageView from '../../components/home/HomePageView.astro';
+import { enabledLocales, type Locale } from '../../i18n/config';
+
+export function getStaticPaths() {
+  return enabledLocales.map((locale) => ({ params: { locale } }));
+}
+
+const locale = (Astro.params.locale || 'en') as Locale;
+---
+
+<HomePageView locale={locale} />

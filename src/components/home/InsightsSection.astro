@@ -1,0 +1,258 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const publishedEntries = (
+  await getCollection('insights', ({ data }) => data.published === true)
+)
+  .filter((entry) => entry.id.startsWith(`${locale}/`))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<section class="section-ivory insights-home-section" aria-labelledby="insights-home-heading">
+  <div class="container-wide">
+    <div class="insights-header">
+      <div>
+        <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+          Editorial & Research
+        </span>
+        <h2 id="insights-home-heading" class="section-heading" style="margin-top: 0.55rem;">
+          Practical Perspectives for Decision-Makers.
+        </h2>
+      </div>
+      <a href={`/${locale}/insights/`} class="insights-all-link">
+        Read All Insights →
+      </a>
+    </div>
+
+    <div class="insights-editorial-grid">
+      {
+        publishedEntries.map((entry, idx) => {
+          const slug = entry.id
+            .split('/')
+            .slice(1)
+            .join('/')
+            .replace(/\.mdx?$/, '');
+          const href = `/${locale}/insights/${slug}/`;
+          const formattedDate = entry.data.pubDate.toLocaleDateString('en-AE', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          });
+
+          return (
+            <article class:list={['insight-card', { 'insight-featured': idx === 0 }]}>
+              <a href={href} class="insight-cover-link" aria-label={`Read article: ${entry.data.title}`}>
+                <div class="insight-cover-art">
+                  {idx === 0 && (
+                    <svg viewBox="0 0 480 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="480" height="240" fill="#141418" />
+                      <circle cx="380" cy="120" r="95" fill="#7456F2" fill-opacity="0.18" />
+                      <rect x="36" y="38" width="240" height="164" rx="10" fill="#1C1C23" stroke="#EAE4FF" stroke-opacity="0.2" />
+                      <rect x="56" y="62" width="120" height="12" rx="4" fill="#F7F5F0" />
+                      <rect x="56" y="84" width="180" height="8" rx="4" fill="#666671" />
+                      <rect x="56" y="102" width="150" height="8" rx="4" fill="#666671" />
+                      <rect x="56" y="136" width="84" height="24" rx="12" fill="#7456F2" />
+                      <circle cx="370" cy="120" r="54" stroke="#B99A62" stroke-width="1.5" />
+                      <path d="M335 120H405M370 85V155" stroke="#EAE4FF" stroke-opacity="0.4" />
+                    </svg>
+                  )}
+                  {idx === 1 && (
+                    <svg viewBox="0 0 480 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="480" height="240" fill="#141418" />
+                      <rect x="44" y="48" width="166" height="144" rx="10" fill="#1C1C23" stroke="#666671" stroke-dasharray="4 4" />
+                      <text x="72" y="124" fill="#B4B2C2" font-size="13" font-family="sans-serif">Redesign</text>
+                      <path d="M224 120H256" stroke="#B99A62" stroke-width="2" />
+                      <rect x="270" y="48" width="166" height="144" rx="10" fill="#1C1C23" stroke="#7456F2" stroke-width="2" />
+                      <text x="296" y="124" fill="#F7F5F0" font-size="13" font-weight="bold" font-family="sans-serif">Complete Rebuild</text>
+                    </svg>
+                  )}
+                  {idx >= 2 && (
+                    <svg viewBox="0 0 480 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="480" height="240" fill="#141418" />
+                      <circle cx="130" cy="120" r="36" fill="#1C1C23" stroke="#EAE4FF" stroke-opacity="0.35" />
+                      <circle cx="240" cy="120" r="44" fill="#7456F2" fill-opacity="0.22" stroke="#7456F2" stroke-width="2" />
+                      <circle cx="350" cy="120" r="36" fill="#1C1C23" stroke="#B99A62" stroke-width="1.5" />
+                      <path d="M166 120H196M284 120H314" stroke="#EAE4FF" stroke-width="1.5" />
+                    </svg>
+                  )}
+                  <span class="cover-category-badge">
+                    {entry.data.category ?? 'Editorial Guide'}
+                  </span>
+                </div>
+              </a>
+
+              <div class="insight-body">
+                <div class="insight-meta">
+                  <time datetime={entry.data.pubDate.toISOString()}>{formattedDate}</time>
+                  <span aria-hidden="true">·</span>
+                  <span>{entry.data.readingTime ?? '6 min read'}</span>
+                </div>
+
+                <h3 class="insight-title">
+                  <a href={href}>{entry.data.title}</a>
+                </h3>
+
+                <p class="insight-desc">{entry.data.description}</p>
+
+                <div class="insight-footer">
+                  <a href={href} class="insight-read-link">
+                    Read Complete Article →
+                  </a>
+                </div>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .insights-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .insights-all-link {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-violet);
+    text-decoration: none;
+  }
+
+  .insights-all-link:hover {
+    text-decoration: underline;
+  }
+
+  .insights-editorial-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .insights-editorial-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .insight-card {
+    background-color: #ffffff;
+    border: 1px solid rgba(20, 20, 24, 0.1);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .insight-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-violet);
+    box-shadow: 0 14px 36px -14px rgba(116, 86, 242, 0.18);
+  }
+
+  .insight-cover-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .insight-cover-art {
+    position: relative;
+    background-color: var(--color-ink);
+    aspect-ratio: 2 / 1;
+    overflow: hidden;
+  }
+
+  .insight-cover-art svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .cover-category-badge {
+    position: absolute;
+    top: 0.85rem;
+    left: 0.85rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background-color: rgba(20, 20, 24, 0.85);
+    border: 1px solid rgba(247, 245, 240, 0.18);
+    color: var(--color-ivory);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .insight-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+  }
+
+  .insight-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.78rem;
+    color: var(--color-slate);
+    font-weight: 500;
+  }
+
+  .insight-title {
+    font-size: 1.22rem;
+    line-height: 1.3;
+    margin: 0;
+    color: var(--color-ink);
+  }
+
+  .insight-title a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .insight-title a:hover {
+    color: var(--color-violet);
+  }
+
+  .insight-desc {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--color-slate-dark);
+    line-height: 1.58;
+  }
+
+  .insight-footer {
+    margin-top: auto;
+    padding-top: 0.75rem;
+  }
+
+  .insight-read-link {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-violet);
+    text-decoration: none;
+  }
+
+  .insight-read-link:hover {
+    text-decoration: underline;
+  }
+</style>
+

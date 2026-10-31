@@ -1,0 +1,8 @@
+{
+  "name": "Mansas Moguls",
+  "short_name": "Moguls",
+  "start_url": "/en/",
+  "display": "standalone",
+  "background_color": "#08090d",
+  "theme_color": "#08090d"
+}

@@ -1,0 +1,92 @@
+---
+import { site } from '../../config/site';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+---
+
+<section class="section-dark final-cta-section" aria-labelledby="final-cta-heading">
+  <div class="container-wide">
+    <div class="final-cta-card">
+      <div class="cta-glow" aria-hidden="true"></div>
+
+      <div class="final-cta-content">
+        <span class="eyebrow-label" style="color: var(--color-gold);">
+          Mansas Moguls · Dubai, UAE
+        </span>
+
+        <h2 id="final-cta-heading" class="page-display" style="margin-top: 0.65rem; max-width: 22ch;">
+          Your next chapter starts with a conversation.
+        </h2>
+
+        <p class="lead-copy" style="color: #cfcdd9; margin: 0.75rem 0 0;">
+          Tell us what you are building, redesigning, or automating. We will help you structure a clear scope across Digital, AI, Growth, Creative, or Strategy.
+        </p>
+
+        <div class="final-cta-actions">
+          <a href={`/${locale}/contact/#project-brief`} class="btn btn-primary">
+            Start a Project
+          </a>
+          <a
+            href={site.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary-dark"
+          >
+            Continue on WhatsApp
+          </a>
+          <button
+            type="button"
+            class="btn btn-secondary-dark"
+            data-open-concierge="true"
+          >
+            Use Moguls Concierge
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(145deg, #1d1c27 0%, #141418 70%);
+    border: 1px solid rgba(247, 245, 240, 0.14);
+    border-radius: 1.75rem;
+    padding: clamp(2.25rem, 5vw, 4.25rem);
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 420px;
+    height: 420px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(116, 86, 242, 0.28) 0%, rgba(185, 154, 98, 0.1) 50%, transparent 72%);
+    filter: blur(32px);
+    pointer-events: none;
+  }
+
+  .final-cta-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .final-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.5rem;
+  }
+</style>
+

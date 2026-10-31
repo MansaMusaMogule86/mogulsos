@@ -1,0 +1,295 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { divisions, divisionSlugs, type DivisionSlug } from '../../../../data/divisions';
+import { getServices } from '../../../../data/services';
+import { enabledLocales, type Locale } from '../../../../i18n/config';
+import FinalCTASection from '../../../../components/home/FinalCTASection.astro';
+
+export function getStaticPaths() {
+  return enabledLocales.flatMap((locale) =>
+    divisionSlugs.map((division) => ({ params: { locale, division } }))
+  );
+}
+
+const { locale = 'en', division } = Astro.params as { locale: Locale; division: DivisionSlug };
+const selected = divisions[division];
+const items = getServices(division);
+const coreItems = items.filter((i) => i.isCoreDivisionService);
+const specializedItems = items.filter((i) => !i.isCoreDivisionService);
+const otherDivisions = divisionSlugs.filter((s) => s !== division);
+---
+
+<BaseLayout
+  title={`${selected.title} — ${selected.eyebrow}`}
+  description={selected.description}
+  locale={locale}
+>
+  <!-- Dark Division Hero -->
+  <section class="section-dark division-hero">
+    <div class="container-wide">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href={`/${locale}/`}>Home</a>
+        <span aria-hidden="true">/</span>
+        <a href={`/${locale}/services/`}>Services</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{selected.title}</span>
+      </nav>
+
+      <div class="editorial-split" style="margin-top: 1.75rem; align-items: center;">
+        <div>
+          <span class="eyebrow-label" style="color: var(--color-gold);">
+            {selected.eyebrow}
+          </span>
+          <h1 class="page-display" style="margin-top: 0.65rem;">
+            {selected.title}
+          </h1>
+          <p class="lead-copy" style="color: #d0cedc; margin: 1.1rem 0 1.6rem;">
+            {selected.editorialIntro}
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.85rem;">
+            <a
+              href={`/${locale}/contact/?division=${encodeURIComponent(selected.title)}#project-brief`}
+              class="btn btn-primary"
+            >
+              Start a {selected.title} Project
+            </a>
+            <a href="#division-services-list" class="btn btn-secondary-dark">
+              Browse {items.length} Capabilities
+            </a>
+          </div>
+        </div>
+
+        <!-- Core Capabilities Highlight Card -->
+        <div class="card-dark">
+          <p class="eyebrow-label" style="color: var(--color-lavender); margin-bottom: 1rem;">
+            Primary Focus Areas
+          </p>
+          <ul class="div-focus-list">
+            {selected.allCapabilities.map((cap) => (
+              <li>
+                <span class="focus-dot" aria-hidden="true"></span>
+                <span>{cap}</span>
+              </li>
+            ))}
+          </ul>
+          {division === 'ai' && (
+            <p class="ai-Note">
+              All external system integrations are subject to technical scoping, and human review checkpoints are preserved wherever decisions or actions require oversight.
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core & Specialized Services Grid (Warm Ivory Editorial) -->
+  <section id="division-services-list" class="section-ivory">
+    <div class="container-wide">
+      <div style="margin-bottom: 2.25rem;">
+        <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+          Flagship Scopes
+        </span>
+        <h2 class="section-heading" style="margin-top: 0.45rem;">
+          Core {selected.title} Services
+        </h2>
+      </div>
+
+      <div class="services-grid-large">
+        {coreItems.map((item) => (
+          <a
+            href={`/${locale}/services/${division}/${item.slug}/`}
+            class="card-ivory service-feature-card"
+          >
+            <div class="card-meta">
+              <span class="pill-lavender">{selected.title}</span>
+              <span class="deliv-count">{item.deliverables.length} Deliverables</span>
+            </div>
+            <h3 class="subsection-heading" style="margin-top: 0.5rem;">
+              {item.title}
+            </h3>
+            <p class="item-headline">{item.headline}</p>
+            <p class="item-desc">{item.description}</p>
+            <ul class="item-mini-delivs">
+              {item.deliverables.slice(0, 3).map((d) => (
+                <li>{d.title}</li>
+              ))}
+            </ul>
+            <span class="item-cta">Read Full Service Specification →</span>
+          </a>
+        ))}
+      </div>
+
+      {specializedItems.length > 0 && (
+        <div style="margin-top: 4rem;">
+          <div style="margin-bottom: 1.75rem;">
+            <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+              Specialized & Supporting Capabilities
+            </span>
+            <h2 class="subsection-heading" style="margin-top: 0.45rem;">
+              Additional {selected.title} Scopes
+            </h2>
+          </div>
+
+          <div class="grid-3">
+            {specializedItems.map((item) => (
+              <a
+                href={`/${locale}/services/${division}/${item.slug}/`}
+                class="card-ivory service-compact-card"
+              >
+                <h3 class="card-heading">{item.title}</h3>
+                <p style="margin: 0.45rem 0 1rem; font-size: 0.9rem; color: var(--color-slate-dark);">
+                  {item.description}
+                </p>
+                <span class="item-cta" style="margin-top: auto;">View Scope & FAQs →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Cross-Division Navigation -->
+  <section class="section-ivory-muted">
+    <div class="container-wide">
+      <div style="margin-bottom: 1.75rem;">
+        <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+          Connected Practice Model
+        </span>
+        <h2 class="subsection-heading" style="margin-top: 0.45rem;">
+          Explore Other Mansas Moguls Divisions
+        </h2>
+      </div>
+
+      <div class="grid-4">
+        {otherDivisions.map((slug) => (
+          <a href={`/${locale}/services/${slug}/`} class="card-ivory" style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-slate); font-weight: 700;">
+              {divisions[slug].eyebrow}
+            </span>
+            <h3 class="card-heading">{divisions[slug].title}</h3>
+            <p style="margin: 0; font-size: 0.88rem; color: var(--color-slate-dark);">
+              {divisions[slug].heroSummary}
+            </p>
+            <span class="item-cta" style="margin-top: auto; padding-top: 0.5rem;">
+              Explore {divisions[slug].shortLabel} →
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FinalCTASection locale={locale} />
+</BaseLayout>
+
+<style>
+  .breadcrumb-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: #a8a6b5;
+  }
+
+  .breadcrumb-nav a {
+    color: #d2d0de;
+    text-decoration: none;
+  }
+
+  .breadcrumb-nav a:hover {
+    color: var(--color-ivory);
+    text-decoration: underline;
+  }
+
+  .div-focus-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 0.65rem 1rem;
+  }
+
+  .div-focus-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.9rem;
+    color: var(--color-ivory);
+    font-weight: 500;
+  }
+
+  .focus-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background-color: var(--color-violet);
+    flex-shrink: 0;
+  }
+
+  .ai-Note {
+    margin: 1.25rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(247, 245, 240, 0.12);
+    font-size: 0.8rem;
+    color: #b8b6c5;
+    line-height: 1.5;
+  }
+
+  .services-grid-large {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-feature-card,
+  .service-compact-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .deliv-count {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-slate);
+  }
+
+  .item-headline {
+    margin: 0.35rem 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .item-desc {
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    color: var(--color-slate-dark);
+    line-height: 1.58;
+  }
+
+  .item-mini-delivs {
+    margin: 0 0 1.25rem;
+    padding-left: 1.1rem;
+    font-size: 0.84rem;
+    color: var(--color-ink);
+    line-height: 1.6;
+  }
+
+  .item-cta {
+    margin-top: auto;
+    font-family: var(--font-display);
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--color-violet);
+  }
+</style>

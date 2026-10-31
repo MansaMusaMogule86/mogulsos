@@ -1,0 +1,6 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { enabledLocales } from '../../../i18n/config';
+export function getStaticPaths() { return enabledLocales.map(locale => ({params:{locale}})); }
+---
+<BaseLayout title="Insights" description="Research, ideas, and practical expertise."><section class="page-wrap intro-hero"><p class="eyebrow">Mansas Moguls</p><h1>Insights.</h1><p>Research, ideas, and practical expertise.</p></section></BaseLayout>

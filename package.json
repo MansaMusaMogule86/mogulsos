@@ -1,0 +1,48 @@
+{
+  "name": "mansas-moguls-immersive",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=22.23.4",
+    "npm": ">=9.6.5"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "validate:assets": "node scripts/audit-assets.mjs",
+    "validate:routes": "node scripts/validate-routes.mjs",
+    "inventory": "node scripts/report-structure.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "8.1.2",
+    "@astrojs/react": "7.1.2",
+    "@astrojs/sitemap": "3.7.4",
+    "@astrojs/vercel": "11.0.17",
+    "@react-three/drei": "9.122.0",
+    "@react-three/fiber": "8.18.0",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.4.4",
+    "gsap": "3.15.0",
+    "lucide-react": "0.439.0",
+    "postprocessing": "6.39.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tailwindcss": "4.3.3",
+    "three": "0.186.1",
+    "zod": "4.6.7",
+    "zustand": "4.5.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@types/react": "18.3.31",
+    "@types/react-dom": "18.3.7",
+    "@types/three": "0.186.0",
+    "typescript": "5.9.3"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
+  }
+}

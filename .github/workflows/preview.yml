@@ -1,0 +1,8 @@
+# Placeholder workflow. Implement CI after install and dependency lock.
+name: Placeholder preview.yml
+on: workflow_dispatch
+jobs:
+  planned:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Workflow not configured"

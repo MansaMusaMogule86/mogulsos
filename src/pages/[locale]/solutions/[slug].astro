@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { enabledLocales } from '../../../i18n/config';
+import { solutions } from '../../../data/solutions';
+import { site } from '../../../config/site';
+
+export function getStaticPaths() {
+  return enabledLocales.flatMap((locale) =>
+    solutions.map((item) => ({
+      params: { locale, slug: item.slug },
+      props: { item },
+    }))
+  );
+}
+
+interface Props {
+  item: {
+    slug: string;
+    title: string;
+  };
+}
+
+const { item } = Astro.props;
+const { locale = 'en' } = Astro.params;
+
+const solutionProfiles: Record<string, {
+  summary: string;
+  architectureComponents: { title: string; desc: string }[];
+  deliverables: string[];
+}> = {
+  'lead-generation-engine': {
+    summary: 'A complete commercial acquisition engine connecting high-intent search positioning, message-matched landing surfaces, automated qualification questionnaires, and instant CRM/WhatsApp lead routing.',
+    architectureComponents: [
+      { title: 'Landing Surface Engine', desc: 'Sub-second Astro landing pages scoring 100 on Core Web Vitals.' },
+      { title: 'Interactive Questionnaire', desc: 'Self-qualifying multi-step form capturing buyer intent and project budget.' },
+      { title: 'Instant Lead Router', desc: 'Real-time webhook handoff to HubSpot, Salesforce, and WhatsApp dispatch.' },
+      { title: 'Attribution Telemetry', desc: 'First-party conversion tracking connecting closed revenue to source campaigns.' },
+    ],
+    deliverables: ['Dedicated Conversion Surfaces', 'Dynamic Questionnaires', 'CRM Webhook Integrations', 'Paid Search Campaign Setup']
+  },
+  'ai-sales-concierge': {
+    summary: 'An autonomous, highly guarded AI concierge trained on approved company documentation to answer prospect questions, qualify commercial intent, and schedule consultations 24/7.',
+    architectureComponents: [
+      { title: 'Scoped RAG Knowledge Base', desc: 'Indexed knowledge base of company offerings, FAQs, and price books.' },
+      { title: 'Strict Guardrail Engine', desc: 'Boundary filters that refuse out-of-scope inquiries and prevent speculation.' },
+      { title: 'Interactive Chat Surface', desc: 'Accessible, responsive chat interface styled seamlessly with your brand.' },
+      { title: 'Human Handover Gate', desc: 'Automatic triage and warm escalation to sales partners for high-value leads.' },
+    ],
+    deliverables: ['Custom Trained RAG Assistant', 'Brand-Matched Chat Component', 'Calendar & CRM Handoffs', 'Latency & Cost Telemetry Dashboard']
+  },
+  'automated-client-onboarding': {
+    summary: 'Streamline the post-sale customer journey with automated digital contract signing, structured asset collection portals, and transparent project milestone tracking.',
+    architectureComponents: [
+      { title: 'Client Onboarding Portal', desc: 'Secure, brand-aligned portal where new clients submit documentation.' },
+      { title: 'Document Verification', desc: 'Automated checklist verification ensuring required assets are gathered.' },
+      { title: 'Notification Automation', desc: 'Automated email and WhatsApp updates keeping stakeholders informed.' },
+      { title: 'Project Tracker Integration', desc: 'Direct synchronization with Jira, Linear, or Notion workspace.' },
+    ],
+    deliverables: ['Secure Client Portal Web Surface', 'Form & Asset Collection Flows', 'Automated Trigger Integrations', 'Client Success Dashboard']
+  }
+};
+
+const defaultSolution = {
+  summary: `An end-to-end commercial architecture package designed to streamline ${item.title.toLowerCase()} for established and growing businesses in the UAE.`,
+  architectureComponents: [
+    { title: 'High-Performance Surface', desc: 'Fast, tokenized interface designed for clear user workflows and conversions.' },
+    { title: 'Workflow Automation', desc: 'Automated operational triggers connecting data sources, notifications, and actions.' },
+    { title: 'Security & Guardrails', desc: 'Role-based access control, encryption, and operational oversight gates.' },
+    { title: 'Business Telemetry', desc: 'Real-time reporting dashboards measuring speed, adoption, and commercial impact.' },
+  ],
+  deliverables: [
+    'Custom Solution Surface',
+    'Operational Automation Pipelines',
+    'Third-Party API Integrations',
+    'Staff Handover & Documentation'
+  ]
+};
+
+const profile = solutionProfiles[item.slug] || defaultSolution;
+---
+
+<BaseLayout
+  title={`${item.title} Solution Architecture | ${site.publicBrand}`}
+  description={profile.summary}
+>
+  <main class="min-h-screen bg-[#141418] text-[#F7F5F0] pt-32 pb-24">
+    <div class="content-container">
+      {/* Breadcrumb */}
+      <nav class="mb-6 flex items-center gap-2 text-xs text-[#8E8D9A]" aria-label="Breadcrumb">
+        <a href={`/${locale}/`} class="hover:text-[#F7F5F0]">Home</a>
+        <span>/</span>
+        <a href={`/${locale}/solutions/`} class="hover:text-[#F7F5F0]">Solutions</a>
+        <span>/</span>
+        <span class="text-[#7456F2]">{item.title}</span>
+      </nav>
+
+      {/* Main Header */}
+      <div class="max-w-3xl mb-16">
+        <span class="text-xs uppercase tracking-widest text-[#7456F2] font-semibold mb-2 block">
+          Turnkey System Architecture · Dubai, UAE
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-[#F7F5F0] mb-6">
+          {item.title}.
+        </h1>
+        <p class="text-lg md:text-xl text-[#8E8D9A] leading-relaxed">
+          {profile.summary}
+        </p>
+      </div>
+
+      {/* Architecture Components Grid */}
+      <div class="mb-20">
+        <span class="text-xs font-mono text-[#7456F2] font-bold block mb-4 uppercase tracking-wider">
+          System Blueprint & Core Modules
+        </span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {profile.architectureComponents.map((comp, idx) => (
+            <div class="p-8 rounded-2xl bg-[#181820] border border-[#26262F] flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-mono text-[#7456F2] block mb-2 font-bold">
+                  MODULE 0{idx + 1}
+                </span>
+                <h3 class="text-xl font-display font-medium text-[#F7F5F0] mb-2">{comp.title}</h3>
+                <p class="text-sm text-[#8E8D9A] leading-relaxed">{comp.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Package Deliverables */}
+      <div class="p-8 md:p-12 rounded-3xl bg-[#181820] border border-[#26262F] mb-16">
+        <h2 class="text-2xl font-display font-medium text-[#F7F5F0] mb-6">
+          Scope Included in this Commission
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {profile.deliverables.map((del) => (
+            <div class="p-4 rounded-xl bg-[#141418] border border-[#26262F] text-xs font-medium text-[#D6D5DC] flex items-center gap-2.5">
+              <span class="text-[#7456F2] font-bold">✓</span>
+              <span>{del}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Consultation Action */}
+      <div class="p-8 md:p-12 rounded-3xl bg-gradient-to-r from-[#181820] to-[#1E1D2A] border border-[#7456F2]/30 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+          <span class="text-xs font-mono text-[#7456F2] font-semibold block mb-2">CUSTOM DEPLOYMENT</span>
+          <h3 class="text-2xl md:text-3xl font-display font-medium text-[#F7F5F0] mb-2">
+            Deploy {item.title} for your enterprise.
+          </h3>
+          <p class="text-sm text-[#8E8D9A] max-w-xl">
+            We adapt this blueprint to your existing CRM, tech stack, and brand guidelines with a fixed milestone schedule.
+          </p>
+        </div>
+        <a
+          href={`/${locale}/contact/?division=${encodeURIComponent(item.title)}#project-brief`}
+          class="btn btn-primary shrink-0 text-xs px-6 py-3.5"
+        >
+          Request Solution Brief →
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,445 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { divisions, divisionSlugs } from '../../../data/divisions';
+import { getServices } from '../../../data/services';
+import { enabledLocales, type Locale } from '../../../i18n/config';
+import FinalCTASection from '../../../components/home/FinalCTASection.astro';
+
+export function getStaticPaths() {
+  return enabledLocales.map((locale) => ({ params: { locale } }));
+}
+
+const locale = (Astro.params.locale || 'en') as Locale;
+---
+
+<BaseLayout
+  title="Services Across Five Connected Divisions"
+  description="Explore website design, application UI/UX, AI workflow automation, SEO, paid campaigns, brand identity, and strategic consulting in Dubai."
+  locale={locale}
+>
+  <!-- Dark Hero -->
+  <section class="section-dark services-hero">
+    <div class="container-wide">
+      <div class="editorial-split" style="align-items: end;">
+        <div>
+          <span class="eyebrow-label" style="color: var(--color-gold);">
+            Capabilities & Practice Areas
+          </span>
+          <h1 class="page-display" style="margin-top: 0.65rem;">
+            Five divisions.<br />One architectural standard.
+          </h1>
+        </div>
+        <div>
+          <p class="lead-copy" style="color: #cfcdd9; margin: 0 0 1.35rem;">
+            Mansas Moguls structures its capabilities across five specialized divisions—Moguls Digital, Moguls AI, Moguls Growth, Moguls Creative, and Moguls Strategy. Commission a focused standalone scope or combine practices under one team in Dubai.
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            <a href={`/${locale}/contact/#project-brief`} class="btn btn-primary">
+              Start a Project
+            </a>
+            <button type="button" class="btn btn-secondary-dark" data-open-concierge="true">
+              Guided Service Matcher
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Division Anchor Strip -->
+      <nav class="division-jump-nav" aria-label="Jump to division">
+        {
+          divisionSlugs.map((slug, idx) => (
+            <a href={`#division-${slug}`} class="jump-pill">
+              <span class="jump-num">0{idx + 1}</span>
+              <span>{divisions[slug].title}</span>
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </section>
+
+  <!-- Editorial Division Sections -->
+  {
+    divisionSlugs.map((slug, idx) => {
+      const div = divisions[slug];
+      const divServices = getServices(slug);
+      const accentColor = div.accent;
+      const secondaryColor = div.accentSecondary || '#7456f2';
+
+      return (
+        <section
+          id={`division-${slug}`}
+          class:list={['division-block', `division-${slug}`]}
+          aria-labelledby={`heading-${slug}`}
+          style={`--accent-color: ${accentColor}; --secondary-color: ${secondaryColor};`}
+        >
+          <div class="container-wide">
+            <div class="div-header-grid">
+              <div>
+                <span class="eyebrow-label" style={`color: ${accentColor};`}>
+                  0{idx + 1} · {div.eyebrow}
+                </span>
+                <h2 id={`heading-${slug}`} class="section-heading" style="margin-top: 0.45rem;">
+                  {div.title}
+                </h2>
+              </div>
+              <div class="div-intro-col">
+                <p style="margin: 0 0 1rem; font-size: 1rem;">
+                  {div.editorialIntro}
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                  <a href={`/${locale}/services/${slug}/`} class="btn btn-primary">
+                    Explore {div.title}
+                  </a>
+                  <a
+                    href={`/${locale}/contact/?division=${encodeURIComponent(div.title)}#project-brief`}
+                    class="btn btn-secondary-division"
+                  >
+                    Inquire with {div.shortLabel}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="services-directory-grid">
+              {divServices.slice(0, 1).map((srv) => (
+                <a
+                  href={`/${locale}/services/${slug}/${srv.slug}/`}
+                  class="service-featured-card"
+                >
+                  <div class="featured-accent" aria-hidden="true"></div>
+                  <span class="srv-div-tag">Featured</span>
+                  <h3 class="card-heading" style="margin-top: 0.75rem;">
+                    {srv.title}
+                  </h3>
+                  <p class="srv-desc">{srv.description}</p>
+                  <span class="srv-link-cue">View specification & deliverables →</span>
+                </a>
+              ))}
+            </div>
+
+            {divServices.length > 1 && (
+              <div class="services-secondary-grid">
+                {divServices.slice(1).map((srv) => (
+                  <a
+                    href={`/${locale}/services/${slug}/${srv.slug}/`}
+                    class="service-dir-card"
+                  >
+                    <div class="srv-card-top">
+                      {srv.isCoreDivisionService && (
+                        <span class="srv-core-badge">Core Capability</span>
+                      )}
+                    </div>
+                    <h4 class="card-heading" style="margin-top: 0.5rem; font-size: 0.95rem;">
+                      {srv.title}
+                    </h4>
+                    <p class="srv-desc">{srv.description}</p>
+                    <span class="srv-link-cue">View specification & deliverables →</span>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <FinalCTASection locale={locale} />
+</BaseLayout>
+
+<style>
+  :root {
+    --accent-color: #7456f2;
+    --secondary-color: #eae4ff;
+  }
+
+  .services-hero {
+    border-bottom: 1px solid rgba(247, 245, 240, 0.1);
+  }
+
+  .division-jump-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 2.75rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(247, 245, 240, 0.1);
+  }
+
+  .jump-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(247, 245, 240, 0.06);
+    border: 1px solid rgba(247, 245, 240, 0.14);
+    color: var(--color-ivory);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+  }
+
+  .jump-pill:hover {
+    border-color: var(--color-violet);
+    background: rgba(116, 86, 242, 0.18);
+  }
+
+  .jump-num {
+    color: var(--color-violet);
+    font-size: 0.75rem;
+  }
+
+  /* Division-specific backgrounds and text colors */
+  .division-block {
+    padding-block: var(--section-pad-y);
+    border-bottom: 1px solid rgba(20, 20, 24, 0.08);
+  }
+
+  /* Digital: Ink + Cyan */
+  .division-digital {
+    background: var(--color-ink);
+    color: var(--color-ivory);
+  }
+
+  .division-digital .eyebrow-label {
+    color: var(--color-cyan);
+  }
+
+  .division-digital .section-heading {
+    color: var(--color-cyan);
+  }
+
+  /* AI: Dark Violet + Violet + Cyan */
+  .division-ai {
+    background: #211637;
+    color: var(--color-ivory);
+  }
+
+  .division-ai .section-heading {
+    color: var(--color-violet);
+  }
+
+  /* Growth: Ivory + Ink text */
+  .division-growth {
+    background: #f7f5f0;
+    color: var(--color-ink);
+  }
+
+  .division-growth .eyebrow-label {
+    color: var(--color-violet);
+  }
+
+  .division-growth .section-heading {
+    color: var(--color-ink);
+  }
+
+  .division-growth .div-intro-col p {
+    color: #494953;
+  }
+
+  /* Creative: Lavender + Ink text */
+  .division-creative {
+    background: #eae4ff;
+    color: var(--color-ink);
+  }
+
+  .division-creative .eyebrow-label {
+    color: var(--color-violet);
+  }
+
+  .division-creative .section-heading {
+    color: var(--color-violet);
+  }
+
+  .division-creative .div-intro-col p {
+    color: #494953;
+  }
+
+  /* Strategy: Ink + Champagne */
+  .division-strategy {
+    background: var(--color-ink);
+    color: var(--color-ivory);
+  }
+
+  .division-strategy .eyebrow-label {
+    color: var(--color-champagne);
+  }
+
+  .division-strategy .section-heading {
+    color: var(--color-champagne);
+  }
+
+  .div-header-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 920px) {
+    .div-header-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+  }
+
+  .div-intro-col p {
+    color: inherit;
+  }
+
+  /* Featured service card */
+  .services-directory-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .service-featured-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 2rem;
+    border-radius: 0.875rem;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    background: rgba(var(--accent-color-rgb), 0.08);
+    border: 1px solid rgba(var(--accent-color-rgb), 0.2);
+  }
+
+  .division-digital .service-featured-card {
+    background: rgba(133, 232, 242, 0.12);
+    border-color: rgba(133, 232, 242, 0.3);
+  }
+
+  .division-ai .service-featured-card {
+    background: rgba(116, 86, 242, 0.15);
+    border-color: rgba(116, 86, 242, 0.4);
+  }
+
+  .division-growth .service-featured-card {
+    background: rgba(116, 86, 242, 0.1);
+    border-color: rgba(116, 86, 242, 0.3);
+  }
+
+  .division-creative .service-featured-card {
+    background: rgba(116, 86, 242, 0.1);
+    border-color: rgba(116, 86, 242, 0.3);
+  }
+
+  .division-strategy .service-featured-card {
+    background: rgba(200, 173, 127, 0.12);
+    border-color: rgba(200, 173, 127, 0.3);
+  }
+
+  .featured-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    border-radius: 0.875rem 0.875rem 0 0;
+    background: var(--accent-color);
+  }
+
+  .service-featured-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-color);
+  }
+
+  /* Secondary services grid */
+  .services-secondary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 1rem;
+  }
+
+  .service-dir-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    border: 1px solid rgba(20, 20, 24, 0.1);
+  }
+
+  .division-digital .service-dir-card,
+  .division-ai .service-dir-card,
+  .division-strategy .service-dir-card {
+    background: rgba(247, 245, 240, 0.05);
+    color: inherit;
+  }
+
+  .division-growth .service-dir-card,
+  .division-creative .service-dir-card {
+    background: rgba(20, 20, 24, 0.04);
+    color: var(--color-ink);
+  }
+
+  .service-dir-card:hover {
+    border-color: var(--accent-color);
+    background: rgba(var(--accent-color-rgb), 0.08);
+  }
+
+  .btn-secondary-division {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+  }
+
+  .btn-secondary-division:hover {
+    background: rgba(var(--accent-color-rgb), 0.1);
+  }
+
+  .division-growth .btn-secondary-division,
+  .division-creative .btn-secondary-division {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+
+  .srv-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .srv-div-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-slate);
+  }
+
+  .srv-core-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    background-color: var(--color-lavender);
+    color: var(--color-ink);
+  }
+
+  .srv-desc {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-slate-dark);
+    line-height: 1.55;
+  }
+
+  .srv-link-cue {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--color-violet);
+  }
+</style>

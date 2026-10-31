@@ -1,0 +1,60 @@
+---
+import PortfolioShowcase from '../work/PortfolioShowcase';
+import { getApprovedCaseStudies } from '../../data/case-studies';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+const approvedProjects = getApprovedCaseStudies();
+---
+
+<section class="section-dark work-home-section" aria-labelledby="work-home-heading">
+  <div class="container-wide">
+    <div class="work-section-header">
+      <div>
+        <span class="eyebrow-label" style="color: var(--color-gold);">
+          Portfolio & Commissions
+        </span>
+        <h2 id="work-home-heading" class="section-heading" style="margin-top: 0.55rem;">
+          Selected Work.
+        </h2>
+      </div>
+      <a href={`/${locale}/work/`} class="work-dir-link">
+        Portfolio Overview →
+      </a>
+    </div>
+
+    <PortfolioShowcase client:visible projects={approvedProjects} locale={locale} compact={true} />
+  </div>
+</section>
+
+<style>
+  .work-home-section {
+    border-top: 1px solid rgba(247, 245, 240, 0.08);
+    border-bottom: 1px solid rgba(247, 245, 240, 0.08);
+  }
+
+  .work-section-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .work-dir-link {
+    font-family: var(--font-display);
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--color-lavender);
+    text-decoration: none;
+  }
+
+  .work-dir-link:hover {
+    text-decoration: underline;
+  }
+</style>
+

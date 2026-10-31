@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { enabledLocales } from '../../../i18n/config';
+import { site } from '../../../config/site';
+
+export function getStaticPaths() {
+  return enabledLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.props;
+
+const openProfiles = [
+  {
+    title: 'Senior Systems Architect (Astro & Edge)',
+    division: 'Moguls Digital',
+    type: 'Full-time / Hybrid (Dubai or Remote)',
+    description: 'Lead technical architecture for flagship enterprise websites, headless CMS integrations, and high-performance WebGL surfaces with Core Web Vitals excellence.',
+    requirements: ['5+ years modern TypeScript/React/Astro experience', 'Deep understanding of edge caching, SSR/SSG, and web security', 'Proficiency in Three.js or GSAP is a strong plus']
+  },
+  {
+    title: 'Applied AI & RAG Engineer',
+    division: 'Moguls AI',
+    type: 'Full-time / Hybrid (Dubai or Remote)',
+    description: 'Design and deploy retrieval-augmented generation pipelines, structured guardrails, vector embeddings, and autonomous operational workflows for enterprise clients.',
+    requirements: ['Hands-on experience with Python/TypeScript AI orchestration frameworks', 'Knowledge of vector databases, rerankers, and evaluation metrics', 'Focus on safety, hallucination prevention, and human oversight']
+  },
+  {
+    title: 'Senior Brand & Systems Designer',
+    division: 'Moguls Creative',
+    type: 'Full-time / Hybrid (Dubai)',
+    description: 'Create definitive visual identities, design systems, typographic scales, and digital design tokens for prestigious regional and international brands.',
+    requirements: ['High-level portfolio of brand identity systems and typography', 'Expertise in Figma component tokenization and auto-layout', 'Experience with 3D or motion design is advantageous']
+  }
+];
+---
+
+<BaseLayout
+  title={`Careers & Collaborations | ${site.publicBrand}`}
+  description="Join Mansas Moguls in Dubai: building next-generation digital platforms, AI systems, and brand experiences for ambitious enterprises."
+>
+  <main class="min-h-screen bg-[#141418] text-[#F7F5F0] pt-32 pb-24">
+    <div class="content-container">
+      <div class="max-w-3xl mb-16">
+        <span class="text-xs uppercase tracking-widest text-[#7456F2] font-semibold mb-2 block">
+          People & Intelligence
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-[#F7F5F0] mb-4">
+          Work with Mansas Moguls.
+        </h1>
+        <p class="text-lg text-[#8E8D9A] leading-relaxed">
+          We are a tight-knit collective of architects, engineers, strategists, and designers based in Dubai. We value senior craft, intellectual rigor, clear writing, and autonomous execution.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+          <span class="text-xs font-mono text-[#7456F2] block mb-2 font-bold">01 / PRINCIPLE</span>
+          <h3 class="text-base font-display font-medium text-[#F7F5F0] mb-1.5">High Autonomy, Zero Bureaucracy</h3>
+          <p class="text-xs text-[#8E8D9A] leading-relaxed">
+            We operate with minimal overhead. Senior builders make decisions directly, communicate transparently with clients, and take genuine ownership.
+          </p>
+        </div>
+        <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+          <span class="text-xs font-mono text-[#7456F2] block mb-2 font-bold">02 / PRINCIPLE</span>
+          <h3 class="text-base font-display font-medium text-[#F7F5F0] mb-1.5">Uncompromising Craft</h3>
+          <p class="text-xs text-[#8E8D9A] leading-relaxed">
+            From typographic kerning to millisecond Core Web Vitals optimization, our work is defined by exacting attention to detail that stands out in the GCC.
+          </p>
+        </div>
+        <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+          <span class="text-xs font-mono text-[#7456F2] block mb-2 font-bold">03 / PRINCIPLE</span>
+          <h3 class="text-base font-display font-medium text-[#F7F5F0] mb-1.5">Intellectual Honesty</h3>
+          <p class="text-xs text-[#8E8D9A] leading-relaxed">
+            We test our assumptions, benchmark our systems, and tell clients what they genuinely need rather than selling trendy tech that fails in production.
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-6 max-w-4xl mb-16">
+        <h2 class="text-2xl font-display font-medium text-[#F7F5F0] mb-4">Current Areas of Opportunity</h2>
+        {openProfiles.map((role) => (
+          <div class="p-8 rounded-2xl bg-[#181820] border border-[#26262F] flex flex-col md:flex-row md:items-start justify-between gap-6">
+            <div class="space-y-3 max-w-xl">
+              <div class="flex items-center gap-3">
+                <span class="text-xs uppercase tracking-wider text-[#7456F2] font-semibold">{role.division}</span>
+                <span class="text-xs text-[#8E8D9A]">· {role.type}</span>
+              </div>
+              <h3 class="text-xl font-display font-medium text-[#F7F5F0]">{role.title}</h3>
+              <p class="text-sm text-[#8E8D9A] leading-relaxed">{role.description}</p>
+              <ul class="text-xs text-[#8E8D9A] space-y-1 pt-2 list-disc pl-4">
+                {role.requirements.map((req) => (
+                  <li >{req}</li>
+                ))}
+              </ul>
+            </div>
+            <a
+              href={`mailto:${site.email}?subject=${encodeURIComponent('Role Inquiry: ' + role.title)}`}
+              class="btn btn-primary text-xs shrink-0 self-start"
+            >
+              Apply via Email →
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <div class="p-8 rounded-2xl bg-[#141418] border border-[#26262F] max-w-4xl">
+        <h3 class="text-lg font-display font-medium text-[#F7F5F0] mb-2">Unsolicited Inquiries & Specialist Collaborators</h3>
+        <p class="text-sm text-[#8E8D9A] leading-relaxed mb-4">
+          We frequently partner with independent technical directors, 3D artists, translation specialists, and security researchers. Send your portfolio and background to <a href={`mailto:${site.email}`} class="text-[#7456F2] underline hover:text-[#9A82FC]">{site.email}</a>.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,292 @@
+---
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const stages = [
+  {
+    number: '01',
+    title: 'Discover',
+    subtitle: 'Commercial Alignment, Scoping & Technical Audit',
+    description:
+      'We clarify your commercial objectives, customer journeys, existing systems, and operational constraints before designing a single screen or writing code.',
+    activities: [
+      'Stakeholder workshops and audience segmentation in the UAE or international target markets',
+      'Audit of existing digital properties, search equity, data sources, and integration requirements',
+      'Definition of scope boundaries, success criteria, and milestone acceptance gates',
+    ],
+    deliverables: [
+      'Project Scope & Architecture Brief',
+      'Sitemap, User Flow & System Map',
+      'Prioritized Execution Roadmap',
+    ],
+    adaptationNote:
+      'For Moguls Strategy engagements, Discover expands into deep market research, competitor benchmarking, and operational revenue audits.',
+  },
+  {
+    number: '02',
+    title: 'Design',
+    subtitle: 'Information Architecture, Visual Systems & Prototypes',
+    description:
+      'We translate strategy into tangible editorial layouts, design tokens, interactive clickable prototypes, or workflow blueprints that your team can review in context.',
+    activities: [
+      'Editorial copy structuring, headline hierarchy, and conversion flow architecture',
+      'Bespoke visual identity, typography pairing, and accessible component design',
+      'Interactive Figma prototyping or AI conversation and prompt guardrail specification',
+    ],
+    deliverables: [
+      'Interactive Clickable Prototype',
+      'Design System Tokens & UI Kit',
+      'Approved Copy & Content Matrix',
+    ],
+    adaptationNote:
+      'For design-only or brand identity commissions, this stage concludes with developer-ready Figma libraries and comprehensive digital brand guidelines.',
+  },
+  {
+    number: '03',
+    title: 'Build',
+    subtitle: 'Production Engineering, Content Assembly & QA',
+    description:
+      'Our engineers, creative producers, or growth specialists implement the approved architecture with clean code, structured data, and rigorous quality checks.',
+    activities: [
+      'Frontend and full-stack implementation, CMS modeling, or workflow automation assembly',
+      'Responsive verification across mobile, tablet, and desktop viewports with reduced-motion fallbacks',
+      'Technical SEO schema, performance tuning, and human-in-the-loop review testing for AI tools',
+    ],
+    deliverables: [
+      'Staging Environment & Build Artifact',
+      'Integration & Guardrail Verification Report',
+      'Cross-Device Accessibility & QA Sign-Off',
+    ],
+    adaptationNote:
+      'For strategy-only or advisory roadmaps, Build focuses on vendor evaluation, RFPs, implementation playbooks, and governance frameworks.',
+  },
+  {
+    number: '04',
+    title: 'Launch & Support',
+    subtitle: 'Deployment, Handover, Training & Continuous Improvement',
+    description:
+      'We manage a controlled go-live, train your internal team on day-to-day operations, and provide ongoing maintenance, conversion testing, or campaign stewardship.',
+    activities: [
+      'Production deployment, DNS/SSL verification, redirect validation, and search indexing checks',
+      'Team documentation, editorial CMS training, or executive presentation handover',
+      'Post-launch performance monitoring, conversion optimization, and retainer support options',
+    ],
+    deliverables: [
+      'Live Production Release & Runbook',
+      'Team Training & Handover Documentation',
+      '30/60/90-Day Optimization Plan',
+    ],
+    adaptationNote:
+      'Clients can transition seamlessly from launch into Moguls Growth retainers or scheduled Website Maintenance plans.',
+  },
+];
+---
+
+<section class="section-ivory-muted process-section" aria-labelledby="process-section-heading">
+  <div class="container-wide">
+    <div class="editorial-split" style="margin-bottom: 3rem; align-items: end;">
+      <div>
+        <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+          How We Work
+        </span>
+        <h2 id="process-section-heading" class="section-heading" style="margin-top: 0.55rem;">
+          Disciplined delivery from discovery to launch.
+        </h2>
+      </div>
+      <div>
+        <p class="lead-copy" style="color: var(--color-slate-dark); margin: 0;">
+          Whether you commission a standalone strategy review, a brand identity system, or a full-scale website and AI workflow build, every engagement follows four structured phases with concrete deliverables.
+        </p>
+      </div>
+    </div>
+
+    <div class="process-stages-grid">
+      {
+        stages.map((stage) => (
+          <article class="process-card">
+            <div class="process-card-top">
+              <span class="stage-num">{stage.number}</span>
+              <span class="stage-subtitle">{stage.subtitle}</span>
+            </div>
+
+            <h3 class="stage-title">{stage.title}</h3>
+            <p class="stage-desc">{stage.description}</p>
+
+            <div class="stage-columns">
+              <div class="stage-col">
+                <h4>Concrete Activities</h4>
+                <ul>
+                  {stage.activities.map((act) => (
+                    <li>{act}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="stage-col deliverables-col">
+                <h4>Key Deliverables</h4>
+                <ul class="deliverables-pills">
+                  {stage.deliverables.map((del) => (
+                    <li>{del}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <p class="stage-adaptation">
+              <strong>Scope adaptation:</strong> {stage.adaptationNote}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="process-footer-bar">
+      <p style="margin: 0; color: var(--color-slate-dark); font-size: 0.95rem;">
+        Need a standalone discovery sprint, design system, or full-stack implementation? We scope each phase transparently.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+        <a href={`/${locale}/process/`} class="btn btn-secondary-light">
+          Full Methodology Details
+        </a>
+        <a href={`/${locale}/contact/#project-brief`} class="btn btn-primary">
+          Start a Project
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process-stages-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .process-stages-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .process-card {
+    background-color: #ffffff;
+    border: 1px solid rgba(20, 20, 24, 0.1);
+    border-radius: var(--radius-xl);
+    padding: clamp(1.5rem, 2.8vw, 2.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .process-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(20, 20, 24, 0.08);
+  }
+
+  .stage-num {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 800;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background-color: var(--color-ink);
+    color: var(--color-ivory);
+  }
+
+  .stage-subtitle {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-gold-accessible-light);
+    text-align: right;
+  }
+
+  .stage-title {
+    font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  .stage-desc {
+    margin: 0;
+    color: var(--color-slate-dark);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .stage-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 0.25rem;
+  }
+
+  .stage-col h4 {
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-slate);
+    margin: 0 0 0.5rem;
+  }
+
+  .stage-col ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.88rem;
+    color: var(--color-ink);
+    line-height: 1.6;
+  }
+
+  .deliverables-pills {
+    list-style: none !important;
+    padding-left: 0 !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .deliverables-pills li {
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-lavender);
+    color: var(--color-ink);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .stage-adaptation {
+    margin: auto 0 0;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(20, 20, 24, 0.08);
+    font-size: 0.82rem;
+    color: var(--color-slate-dark);
+    line-height: 1.5;
+  }
+
+  .process-footer-bar {
+    margin-top: 2.25rem;
+    padding: 1.5rem 2rem;
+    border-radius: var(--radius-lg);
+    background-color: #ffffff;
+    border: 1px solid rgba(20, 20, 24, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 820px) {
+    .process-footer-bar {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+</style>
+

@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { enabledLocales } from '../../../i18n/config';
+import { site } from '../../../config/site';
+
+export function getStaticPaths() {
+  return enabledLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.props;
+
+const corePrinciples = [
+  {
+    num: '01',
+    title: 'Architectural Coherence',
+    text: 'We do not build isolated websites or disjointed ad campaigns. Strategy, interface design, artificial intelligence, and conversion funnels are engineered as a singular, unified machine.',
+  },
+  {
+    num: '02',
+    title: 'Grounded Engineering',
+    text: 'No speculative buzzwords or brittle experiments. We build with resilient static architecture, performant tokenized design systems, and rigorous human review gates.',
+  },
+  {
+    num: '03',
+    title: 'Regional Authority in Dubai',
+    text: 'Headquartered in the United Arab Emirates, we understand the local nuances of bilingual interfaces, GCC commercial regulations, high-net-worth customer expectations, and rapid execution.',
+  },
+  {
+    num: '04',
+    title: 'Senior Stewardship',
+    text: 'Our clients engage directly with senior practice leads and systems architects. We eliminate agency bureaucracy, account-manager telephone games, and junior handoffs.',
+  },
+];
+---
+
+<BaseLayout
+  title={`About Our Studio | ${site.publicBrand}`}
+  description="Discover Mansas Moguls L.L.C-FZ: a modern technology studio and digital architecture practice based in Dubai, United Arab Emirates."
+>
+  <main class="min-h-screen bg-[#141418] text-[#F7F5F0] pt-32 pb-24">
+    <div class="content-container">
+      {/* Intro Header */}
+      <div class="max-w-3xl mb-16">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2 h-2 rounded-full bg-[#7456F2]"></span>
+          <span class="text-xs uppercase tracking-widest text-[#7456F2] font-semibold">
+            The Studio Story · Dubai, UAE
+          </span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-[#F7F5F0] mb-6">
+          We Architect<br />What’s Next.
+        </h1>
+        <p class="text-lg md:text-xl text-[#8E8D9A] leading-relaxed">
+          {site.legalName} is a multi-disciplinary technology practice and strategic design studio headquartered in Dubai. We exist to solve a fundamental problem in modern commerce: ambitious companies having to coordinate five disconnected agencies to build one coherent brand and operating system.
+        </p>
+      </div>
+
+      {/* The Five Integrated Practices Overview */}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+        <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+          <span class="text-xs font-mono text-[#7456F2] font-bold block mb-2">01 / PRACTICE</span>
+          <h3 class="text-xl font-display font-medium text-[#F7F5F0] mb-2">Moguls Digital</h3>
+          <p class="text-sm text-[#8E8D9A] leading-relaxed mb-4">
+            Flagship business websites, interactive client portals, and responsive web applications built on Astro, React, and high-speed edge infrastructure.
+          </p>
+          <a href={`/${locale}/services/digital/`} class="text-xs text-[#7456F2] font-semibold hover:underline">
+            Explore Digital Practice →
+          </a>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+          <span class="text-xs font-mono text-[#7456F2] font-bold block mb-2">02 / PRACTICE</span>
+          <h3 class="text-xl font-display font-medium text-[#F7F5F0] mb-2">Moguls AI</h3>
+          <p class="text-sm text-[#8E8D9A] leading-relaxed mb-4">
+            Custom retrieval-augmented assistants (RAG), automated document intelligence, and multi-step operational workflows with human oversight gates.
+          </p>
+          <a href={`/${locale}/services/ai/`} class="text-xs text-[#7456F2] font-semibold hover:underline">
+            Explore AI Practice →
+          </a>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+          <span class="text-xs font-mono text-[#7456F2] font-bold block mb-2">03 / PRACTICE</span>
+          <h3 class="text-xl font-display font-medium text-[#F7F5F0] mb-2">Moguls Growth</h3>
+          <p class="text-sm text-[#8E8D9A] leading-relaxed mb-4">
+            Intent-led search positioning, dedicated landing page conversion funnels, and disciplined paid acquisition for UAE and international markets.
+          </p>
+          <a href={`/${locale}/services/growth/`} class="text-xs text-[#7456F2] font-semibold hover:underline">
+            Explore Growth Practice →
+          </a>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+          <span class="text-xs font-mono text-[#7456F2] font-bold block mb-2">04 / PRACTICE</span>
+          <h3 class="text-xl font-display font-medium text-[#F7F5F0] mb-2">Moguls Creative</h3>
+          <p class="text-sm text-[#8E8D9A] leading-relaxed mb-4">
+            Bespoke brand identities, heraldic marks, tokenized design systems, 3D motion design, and executive presentation suites that establish category prestige.
+          </p>
+          <a href={`/${locale}/services/creative/`} class="text-xs text-[#7456F2] font-semibold hover:underline">
+            Explore Creative Practice →
+          </a>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+          <span class="text-xs font-mono text-[#7456F2] font-bold block mb-2">05 / PRACTICE</span>
+          <h3 class="text-xl font-display font-medium text-[#F7F5F0] mb-2">Moguls Strategy</h3>
+          <p class="text-sm text-[#8E8D9A] leading-relaxed mb-4">
+            Root-cause business diagnosis, market positioning, phased 30-60-90 day execution roadmaps, and cross-functional technology governance.
+          </p>
+          <a href={`/${locale}/services/strategy/`} class="text-xs text-[#7456F2] font-semibold hover:underline">
+            Explore Strategy Practice →
+          </a>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-gradient-to-br from-[#1E1D2A] to-[#141418] border border-[#7456F2]/30 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-mono text-[#EAE4FF] font-bold block mb-2">EXECUTIVE COMMISSION</span>
+            <h3 class="text-xl font-display font-medium text-[#F7F5F0] mb-2">Commission an Engagement</h3>
+            <p class="text-sm text-[#8E8D9A] leading-relaxed">
+              Ready to explore an end-to-end transformation or a targeted architectural delivery? Speak directly with our leadership team in Dubai.
+            </p>
+          </div>
+          <a href={`/${locale}/contact/#project-brief`} class="btn btn-primary mt-6 self-start text-xs">
+            Start a Project Brief →
+          </a>
+        </div>
+      </div>
+
+      {/* Operating Principles */}
+      <div class="border-t border-[#26262F] pt-16">
+        <div class="max-w-2xl mb-12">
+          <span class="text-xs uppercase tracking-widest text-[#7456F2] font-semibold mb-2 block">
+            Operating Standards
+          </span>
+          <h2 class="text-3xl font-display font-medium text-[#F7F5F0]">
+            The principles governing every engagement.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {corePrinciples.map((p) => (
+            <div class="flex items-start gap-4">
+              <span class="text-sm font-mono font-bold text-[#7456F2] mt-1">{p.num}</span>
+              <div>
+                <h3 class="text-lg font-display font-medium text-[#F7F5F0] mb-1.5">{p.title}</h3>
+                <p class="text-sm text-[#8E8D9A] leading-relaxed">{p.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

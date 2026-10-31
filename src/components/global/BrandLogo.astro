@@ -1,0 +1,69 @@
+---
+interface Props {
+  locale?: string;
+  variant?: 'header' | 'footer';
+}
+const { locale = 'en', variant = 'header' } = Astro.props;
+---
+
+<a
+  href={`/${locale}/`}
+  class={`brand-link ${variant === 'footer' ? 'brand-footer' : 'brand-header'}`}
+  aria-label="Mansas Moguls — Return to homepage"
+>
+  {/* Check for actual logo file if present */}
+  <img
+    src="/brand/logos/official/mansas-moguls-logo.svg"
+    alt="MANSAS MOGULS"
+    class="brand-image"
+    onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';"
+    loading="eager"
+  />
+  <span class="brand-wordmark-fallback">
+    <span class="brand-text">MANSAS MOGULS</span>
+  </span>
+</a>
+
+<style>
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-ivory, #F7F5F0);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .brand-link:hover {
+    opacity: 0.92;
+    transform: translateY(-0.5px);
+  }
+
+  .brand-image {
+    height: 28px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    display: none; /* revealed if image loads successfully */
+  }
+
+  .brand-wordmark-fallback {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .brand-text {
+    font-family: var(--font-display, "Cinzel", "Playfair Display", Georgia, serif);
+    font-weight: 700;
+    font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ivory, #F7F5F0);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .brand-footer .brand-text {
+    font-size: 1.15rem;
+    letter-spacing: 0.18em;
+  }
+</style>

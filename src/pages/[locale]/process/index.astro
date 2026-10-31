@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { enabledLocales } from '../../../i18n/config';
+import { site } from '../../../config/site';
+
+export function getStaticPaths() {
+  return enabledLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.props;
+
+const phases = [
+  {
+    step: '01',
+    title: 'Discover & Diagnose',
+    tagline: 'Uncovering ground truths before writing code or designing screens.',
+    description:
+      'We audit your current technology stack, commercial bottlenecks, buyer inquiry paths, and competitive positioning. Rather than accepting superficial requests, we diagnose root causes to ensure every dollar invested delivers measurable return.',
+    deliverables: [
+      'Technical Architecture & Performance Audit',
+      'Buyer Journey & Search Intent Mapping',
+      'Competitive Differentiation Analysis',
+      'Phased Scope & Milestone Statement of Work (SOW)',
+    ],
+    timeline: 'Weeks 1 – 2',
+  },
+  {
+    step: '02',
+    title: 'Design & Prototype',
+    tagline: 'Tokenized interfaces and validated interactive workflows.',
+    description:
+      'We translate positioning into typographic hierarchies, design systems, and clickable high-fidelity prototypes. Every interface is tested for responsiveness across mobile, tablet, and desktop before engineering begins.',
+    deliverables: [
+      'Tokenized UI Component Design System',
+      'High-Fidelity Clickable Mobile & Desktop Prototypes',
+      'Information Architecture & Content Wireframes',
+      'Client Review & Pre-Build Sign-Off Gates',
+    ],
+    timeline: 'Weeks 2 – 5',
+  },
+  {
+    step: '03',
+    title: 'Engineer & Integrate',
+    tagline: 'High-speed production engineering with zero technical debt.',
+    description:
+      'We build clean, statically typed codebases using Astro, React, and TypeScript. We connect required CMS backends, train scoped AI assistants with rigorous guardrails, and implement bilingual accessibility.',
+    deliverables: [
+      'Core Web Vitals 100/100 Production Codebase',
+      'Scoped AI RAG Pipelines & Human Review Gates',
+      'Structured JSON-LD Schema & On-Page Technical SEO',
+      'Automated CI/CD Deployment to Global Edge CDN',
+    ],
+    timeline: 'Weeks 5 – 9',
+  },
+  {
+    step: '04',
+    title: 'Launch, Telemetry & Stewardship',
+    tagline: 'Disciplined deployment and continuous commercial optimization.',
+    description:
+      'We orchestrate zero-downtime launches, verify domain DNS and SSL certificates, test redirect maps, and monitor telemetry. Following launch, we provide ongoing architectural stewardship and iterative enhancements.',
+    deliverables: [
+      'Zero-Downtime Domain & Hosting Cutover',
+      'Search Console, Analytics & Conversion Tracking Verification',
+      'Client Operational Documentation & Video Handover',
+      'Ongoing Retained SLA & Strategic Roadmap Governance',
+    ],
+    timeline: 'Week 10 & Ongoing',
+  },
+];
+---
+
+<BaseLayout
+  title={`Our Methodology & Process | ${site.publicBrand}`}
+  description="Discover the four-stage delivery framework we use to architect websites, applications, AI systems, and brand identities in Dubai."
+>
+  <main class="min-h-screen bg-[#141418] text-[#F7F5F0] pt-32 pb-24">
+    <div class="content-container">
+      {/* Intro Header */}
+      <div class="max-w-3xl mb-16">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2 h-2 rounded-full bg-[#7456F2]"></span>
+          <span class="text-xs uppercase tracking-widest text-[#7456F2] font-semibold">
+            Execution Framework · Dubai, UAE
+          </span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-[#F7F5F0] mb-6">
+          How We Work.
+        </h1>
+        <p class="text-lg md:text-xl text-[#8E8D9A] leading-relaxed">
+          From initial diagnosis to post-launch stewardship, our delivery model eliminates guesswork. We work in disciplined, transparent sprints with senior leads dedicated to your outcome.
+        </p>
+      </div>
+
+      {/* 4 Phases Stack */}
+      <div class="space-y-12 mb-20">
+        {phases.map((phase) => (
+          <div
+            class="p-8 md:p-12 rounded-3xl bg-[#181820] border border-[#26262F] grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
+          >
+            <div class="lg:col-span-4 flex flex-col justify-between h-full">
+              <div>
+                <span class="text-3xl md:text-4xl font-display font-bold text-[#7456F2] block mb-2">
+                  {phase.step}
+                </span>
+                <h2 class="text-2xl md:text-3xl font-display font-medium text-[#F7F5F0] mb-2">
+                  {phase.title}
+                </h2>
+                <span class="text-xs font-mono text-[#8E8D9A] uppercase tracking-wider block">
+                  Typical Duration: {phase.timeline}
+                </span>
+              </div>
+              <p class="text-sm font-medium text-[#EAE4FF] mt-4 lg:mt-8">
+                {phase.tagline}
+              </p>
+            </div>
+
+            <div class="lg:col-span-8 flex flex-col justify-between gap-6">
+              <p class="text-base text-[#8E8D9A] leading-relaxed">
+                {phase.description}
+              </p>
+
+              <div>
+                <span class="text-xs uppercase tracking-wider font-semibold text-[#F7F5F0] block mb-3">
+                  Core Deliverables & Milestones:
+                </span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {phase.deliverables.map((item) => (
+                    <div
+                      class="p-3 rounded-lg bg-[#141418] border border-[#26262F] flex items-center gap-2.5 text-xs text-[#D6D5DC]"
+                    >
+                      <span class="text-[#7456F2] font-bold">✓</span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Adaptation for Strategy or Design Only */}
+      <div class="p-8 rounded-2xl bg-gradient-to-r from-[#181820] to-[#1E1D2A] border border-[#7456F2]/30 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h3 class="text-xl font-display font-medium text-[#F7F5F0] mb-1">
+            Need Strategy or Brand Design Only?
+          </h3>
+          <p class="text-sm text-[#8E8D9A]">
+            Our methodology is modular. We frequently run standalone 4-week strategic diagnoses or 6-week brand identity sprints without mandatory engineering commitments.
+          </p>
+        </div>
+        <a href={`/${locale}/contact/#project-brief`} class="btn btn-primary shrink-0 text-xs">
+          Discuss Engagement Options →
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

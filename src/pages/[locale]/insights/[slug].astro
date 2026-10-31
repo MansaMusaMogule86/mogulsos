@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { enabledLocales } from '../../../i18n/config';
+export async function getStaticPaths() {
+ const entries = await getCollection('insights', ({data}) => data.published === true);
+ return entries.flatMap(entry => enabledLocales.filter(locale => entry.id.startsWith(locale + '/')).map(locale => ({params:{locale, slug:entry.id.split('/').slice(1).join('/').replace(/\.mdx?$/, '')},props:{entry}})));
+}
+const {entry} = Astro.props;
+const {Content} = await render(entry);
+---
+<BaseLayout title={entry.data.title} description={entry.data.description}><article class="page-wrap intro-hero"><p class="eyebrow">Insights</p><h1>{entry.data.title}</h1><p>{entry.data.description}</p><Content /></article></BaseLayout>

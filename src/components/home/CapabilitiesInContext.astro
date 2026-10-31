@@ -1,0 +1,706 @@
+---
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+---
+
+<section class="section-ivory capabilities-context-section" aria-labelledby="capabilities-context-heading">
+  <div class="container-wide">
+    <div class="editorial-split" style="margin-bottom: 3rem; align-items: end;">
+      <div>
+        <span class="eyebrow-label" style="color: var(--color-gold-accessible-light);">
+          Capabilities in Context
+        </span>
+        <h2 id="capabilities-context-heading" class="section-heading" style="margin-top: 0.55rem;">
+          Designed systems ready to commission.
+        </h2>
+      </div>
+      <p class="lead-copy" style="color: var(--color-slate-dark); margin: 0;">
+        Every engagement translates strategic positioning into concrete interfaces, workflows, and campaign assets. The compositions below illustrate the caliber of work clients commission across our five divisions.
+      </p>
+    </div>
+
+    <div class="compositions-layout">
+      <!-- Composition 1: Responsive Website Presentation (Large Feature) -->
+      <article class="composition-card composition-wide">
+        <div class="comp-meta-row">
+          <span class="comp-tag">Capability illustration</span>
+          <span class="comp-division">Moguls Digital · Business Websites & Rebuilds</span>
+        </div>
+
+        <div class="comp-split">
+          <div class="comp-copy">
+            <h3 class="subsection-heading">Responsive Website Presentation</h3>
+            <p style="color: var(--color-slate-dark);">
+              Editorial typography, bilingual-ready grid systems, structured service hierarchies, and instant mobile responsiveness engineered for commercial clarity in the UAE market.
+            </p>
+            <ul class="comp-points">
+              <li>Deliberate editorial pacing & clear inquiry paths</li>
+              <li>Core Web Vitals optimization & technical SEO schema</li>
+              <li>Desktop and mobile viewport parity</li>
+            </ul>
+            <a href={`/${locale}/services/digital/website-design/`} class="comp-link">
+              Commission a Business Website →
+            </a>
+          </div>
+
+          <!-- Illustrative Responsive Browser + Mobile Mockup -->
+          <div class="comp-mockup-stage" aria-label="Capability illustration of a responsive website presentation">
+            <div class="browser-window">
+              <div class="browser-chrome">
+                <span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="chrome-url">mansasmoguls.com / architecture-preview</span>
+                <span class="chrome-badge">Capability illustration</span>
+              </div>
+              <div class="browser-body">
+                <div class="mock-hero-bar">
+                  <span class="mock-kicker">DUBAI COMMERCIAL ARCHITECTURE</span>
+                  <div class="mock-title-lines">
+                    <span class="line-lg"></span>
+                    <span class="line-md"></span>
+                  </div>
+                  <div class="mock-cta-row">
+                    <span class="mock-pill-violet">Primary Action</span>
+                    <span class="mock-pill-outline">Specification</span>
+                  </div>
+                </div>
+                <div class="mock-cards-row">
+                  <div class="mock-mini-card">
+                    <span class="mini-label">01 / Strategy</span>
+                    <span class="mini-bar"></span>
+                  </div>
+                  <div class="mock-mini-card">
+                    <span class="mini-label">02 / Interface</span>
+                    <span class="mini-bar"></span>
+                  </div>
+                  <div class="mock-mini-card">
+                    <span class="mini-label">03 / Conversion</span>
+                    <span class="mini-bar"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Composition 2: Application Interface -->
+      <article class="composition-card">
+        <div class="comp-meta-row">
+          <span class="comp-tag">Capability illustration</span>
+          <span class="comp-division">Moguls Digital · Application UI/UX</span>
+        </div>
+
+        <h3 class="subsection-heading" style="margin-top: 0.5rem;">Application & Portal Interface</h3>
+        <p style="color: var(--color-slate-dark); font-size: 0.95rem;">
+          Client portals, booking flows, and operational dashboards designed with tokenized component libraries and validated through clickable prototypes.
+        </p>
+
+        <div class="app-ui-illustration" aria-label="Capability illustration of an application interface">
+          <div class="app-ui-header">
+            <span>Client Operations Portal</span>
+            <span class="status-pill">Design System v2.4</span>
+          </div>
+          <div class="app-ui-metrics">
+            <div class="ui-stat-box">
+              <span class="ui-stat-label">Active Workflows</span>
+              <span class="ui-stat-value">14 Stages</span>
+            </div>
+            <div class="ui-stat-box">
+              <span class="ui-stat-label">Review Queue</span>
+              <span class="ui-stat-value">Human Verified</span>
+            </div>
+          </div>
+          <div class="app-ui-timeline">
+            <div class="timeline-row is-done">
+              <span class="dot"></span>
+              <span>Onboarding Documentation & KYC Intake</span>
+              <span class="tag-done">Complete</span>
+            </div>
+            <div class="timeline-row is-current">
+              <span class="dot"></span>
+              <span>Milestone Architecture Approval</span>
+              <span class="tag-active">In Review</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: auto; padding-top: 1rem;">
+          <a href={`/${locale}/services/digital/ui-ux-design/`} class="comp-link">
+            Explore Application UI/UX →
+          </a>
+        </div>
+      </article>
+
+      <!-- Composition 3: Locally Scripted AI Conversation -->
+      <article class="composition-card">
+        <div class="comp-meta-row">
+          <span class="comp-tag">Capability illustration</span>
+          <span class="comp-division">Moguls AI · Scoped Assistants</span>
+        </div>
+
+        <h3 class="subsection-heading" style="margin-top: 0.5rem;">Locally Scripted AI Conversation</h3>
+        <p style="color: var(--color-slate-dark); font-size: 0.95rem;">
+          Grounded customer and internal assistants that cite approved company documentation and route complex decisions to a human specialist.
+        </p>
+
+        <div class="ai-chat-illustration" aria-label="Capability illustration of a locally scripted AI conversation">
+          <div class="chat-bubble-user">
+            <span class="chat-sender">Visitor Inquiry</span>
+            <p>“Do you support bilingual Arabic and English property portals with CRM lead routing?”</p>
+          </div>
+          <div class="chat-bubble-assistant">
+            <div class="assistant-header">
+              <span class="chat-sender">Scoped Assistant Preview</span>
+              <span class="citation-pill">Grounded in Approved Scope Docs</span>
+            </div>
+            <p>
+              “Yes. We architect RTL/LTR web platforms and scope CRM integrations during discovery. Complex routing rules include a human review checkpoint before deployment.”
+            </p>
+            <div class="assistant-actions-preview">
+              <span>→ Route to Solutions Architect</span>
+              <span>→ Attach Brief Summary</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: auto; padding-top: 1rem;">
+          <a href={`/${locale}/services/ai/ai-chatbots/`} class="comp-link">
+            Explore Customer Assistants →
+          </a>
+        </div>
+      </article>
+
+      <!-- Composition 4: Campaign or Social Content Composition -->
+      <article class="composition-card composition-wide">
+        <div class="comp-meta-row">
+          <span class="comp-tag">Capability illustration</span>
+          <span class="comp-division">Moguls Creative & Moguls Growth</span>
+        </div>
+
+        <div class="comp-split">
+          <div class="comp-copy">
+            <h3 class="subsection-heading">Campaign & Social Content System</h3>
+            <p style="color: var(--color-slate-dark);">
+              Cohesive art direction, social creative templates, executive presentation frames, and paid campaign assets aligned to dedicated conversion landing pages.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.75rem;">
+              <a href={`/${locale}/services/creative/campaign-creative/`} class="comp-link">
+                Explore Campaign Creative →
+              </a>
+              <a href={`/${locale}/services/growth/paid-media/`} class="comp-link">
+                Explore Paid Media Strategy →
+              </a>
+            </div>
+          </div>
+
+          <div class="campaign-cards-stage" aria-label="Capability illustration of campaign and social creative">
+            <div class="social-frame frame-dark">
+              <span class="frame-kicker">BRAND SYSTEM · 4:5 FEED</span>
+              <h4>Architectural Clarity in Every Frame.</h4>
+              <span class="frame-footer">Moguls Creative · Visual Guidelines</span>
+            </div>
+            <div class="social-frame frame-lavender">
+              <span class="frame-kicker">SEARCH & PAID ACQUISITION</span>
+              <h4>Structured Landing Page + Ad Creative</h4>
+              <span class="frame-footer">Moguls Growth · Conversion Architecture</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .compositions-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .compositions-layout {
+      grid-template-columns: 1fr 1fr;
+    }
+    .composition-wide {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .composition-card {
+    background-color: #ffffff;
+    border: 1px solid rgba(20, 20, 24, 0.1);
+    border-radius: var(--radius-xl);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 10px 30px -15px rgba(20, 20, 24, 0.06);
+  }
+
+  .comp-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .comp-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.28rem 0.75rem;
+    border-radius: 999px;
+    background-color: var(--color-lavender);
+    color: var(--color-ink);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .comp-division {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-slate);
+  }
+
+  .comp-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .comp-split {
+      grid-template-columns: 0.95fr 1.05fr;
+    }
+  }
+
+  .comp-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .comp-points {
+    margin: 0.25rem 0;
+    padding-left: 1.15rem;
+    color: var(--color-ink);
+    font-size: 0.925rem;
+    line-height: 1.7;
+  }
+
+  .comp-link {
+    font-family: var(--font-display);
+    font-size: 0.925rem;
+    font-weight: 700;
+    color: var(--color-violet);
+    text-decoration: none;
+  }
+
+  .comp-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Browser Mockup */
+  .browser-window {
+    background-color: var(--color-ink);
+    color: var(--color-ivory);
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(20, 20, 24, 0.15);
+  }
+
+  .browser-chrome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    background-color: #1c1c23;
+    border-bottom: 1px solid rgba(247, 245, 240, 0.1);
+    font-size: 0.72rem;
+  }
+
+  .chrome-dots {
+    display: inline-flex;
+    gap: 0.35rem;
+  }
+
+  .chrome-dots i {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: rgba(247, 245, 240, 0.25);
+    display: inline-block;
+  }
+
+  .chrome-url {
+    color: #a8a6b5;
+    font-family: monospace;
+  }
+
+  .chrome-badge {
+    color: var(--color-gold);
+    font-weight: 600;
+  }
+
+  .browser-body {
+    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+
+  .mock-hero-bar {
+    background: rgba(247, 245, 240, 0.04);
+    border: 1px solid rgba(247, 245, 240, 0.1);
+    border-radius: 0.75rem;
+    padding: 1.15rem;
+  }
+
+  .mock-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--color-gold);
+    font-weight: 600;
+  }
+
+  .mock-title-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin: 0.65rem 0 1rem;
+  }
+
+  .line-lg {
+    height: 12px;
+    width: 78%;
+    border-radius: 4px;
+    background-color: var(--color-ivory);
+  }
+
+  .line-md {
+    height: 12px;
+    width: 52%;
+    border-radius: 4px;
+    background-color: rgba(247, 245, 240, 0.55);
+  }
+
+  .mock-cta-row {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .mock-pill-violet {
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    background-color: var(--color-violet);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .mock-pill-outline {
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(247, 245, 240, 0.25);
+    color: var(--color-ivory);
+    font-size: 0.72rem;
+  }
+
+  .mock-cards-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.65rem;
+  }
+
+  .mock-mini-card {
+    background: #1c1c23;
+    border: 1px solid rgba(247, 245, 240, 0.08);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .mini-label {
+    font-size: 0.68rem;
+    color: #EAE4FF;
+  }
+
+  .mini-bar {
+    height: 6px;
+    width: 70%;
+    border-radius: 3px;
+    background: rgba(116, 86, 242, 0.5);
+  }
+
+  /* App UI Illustration */
+  .app-ui-illustration {
+    background-color: var(--color-ink);
+    color: var(--color-ivory);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 0.35rem;
+  }
+
+  .app-ui-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(247, 245, 240, 0.1);
+  }
+
+  .status-pill {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(116, 86, 242, 0.22);
+    color: var(--color-lavender);
+  }
+
+  .app-ui-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .ui-stat-box {
+    background: #1c1c23;
+    border: 1px solid rgba(247, 245, 240, 0.09);
+    border-radius: 0.65rem;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .ui-stat-label {
+    font-size: 0.7rem;
+    color: #a8a6b5;
+  }
+
+  .ui-stat-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+  }
+
+  .app-ui-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .timeline-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.5rem;
+    background: rgba(247, 245, 240, 0.04);
+    font-size: 0.78rem;
+  }
+
+  .tag-done {
+    color: var(--color-gold);
+    font-weight: 600;
+  }
+
+  .tag-active {
+    color: var(--color-lavender);
+    font-weight: 600;
+  }
+
+  /* AI Chat Illustration */
+  .ai-chat-illustration {
+    background-color: var(--color-ivory-muted);
+    border: 1px solid rgba(20, 20, 24, 0.1);
+    border-radius: 1rem;
+    padding: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+  }
+
+  .chat-bubble-user {
+    background-color: #ffffff;
+    border: 1px solid rgba(20, 20, 24, 0.09);
+    border-radius: 0.75rem;
+    padding: 0.75rem 0.95rem;
+    font-size: 0.84rem;
+  }
+
+  .chat-bubble-user p,
+  .chat-bubble-assistant p {
+    margin: 0.25rem 0 0;
+    line-height: 1.5;
+  }
+
+  .chat-sender {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-slate);
+  }
+
+  .chat-bubble-assistant {
+    background-color: var(--color-ink);
+    color: var(--color-ivory);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.84rem;
+  }
+
+  .assistant-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .assistant-header .chat-sender {
+    color: var(--color-gold);
+  }
+
+  .citation-pill {
+    font-size: 0.68rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(116, 86, 242, 0.28);
+    color: var(--color-lavender);
+  }
+
+  .assistant-actions-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.65rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid rgba(247, 245, 240, 0.12);
+    font-size: 0.75rem;
+    color: var(--color-lavender);
+    font-weight: 600;
+  }
+
+  /* Campaign Creative Stage */
+  .campaign-cards-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 560px) {
+    .campaign-cards-stage {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .social-frame {
+    border-radius: 1rem;
+    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 190px;
+  }
+
+  .frame-dark {
+    background-color: var(--color-ink);
+    color: var(--color-ivory);
+    border: 1px solid rgba(20, 20, 24, 0.2);
+  }
+
+  .capabilities-context-section {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .composition-card {
+    will-change: transform;
+    transform-origin: center center;
+  }
+
+  .frame-lavender {
+    background-color: var(--color-lavender);
+    color: var(--color-ink);
+    border: 1px solid rgba(116, 86, 242, 0.25);
+  }
+
+  .frame-kicker {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--color-gold);
+  }
+
+  .frame-lavender .frame-kicker {
+    color: var(--color-violet-deep);
+  }
+
+  .social-frame h4 {
+    font-size: 1.15rem;
+    line-height: 1.25;
+    margin: 0.75rem 0;
+  }
+
+  .frame-footer {
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isDesktop = window.matchMedia('(min-width: 900px)').matches;
+
+    if (!prefersReducedMotion && isDesktop) {
+      const cards = document.querySelectorAll<HTMLElement>('.composition-card');
+      cards.forEach((card, i) => {
+        const isEven = i % 2 === 0;
+        gsap.fromTo(
+          card,
+          {
+            y: isEven ? 16 : 24,
+            rotation: isEven ? -0.7 : 0.7,
+          },
+          {
+            y: isEven ? -14 : -22,
+            rotation: isEven ? 0.5 : -0.5,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 92%',
+              end: 'bottom 8%',
+              scrub: 1,
+            },
+          }
+        );
+      });
+    }
+  }
+</script>
+

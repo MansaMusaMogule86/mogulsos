@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { enabledLocales } from '../../../i18n/config';
+import { industries } from '../../../data/industries';
+import { site } from '../../../config/site';
+
+export function getStaticPaths() {
+  return enabledLocales.flatMap((locale) =>
+    industries.map((item) => ({
+      params: { locale, slug: item.slug },
+      props: { item },
+    }))
+  );
+}
+
+interface Props {
+  item: {
+    slug: string;
+    title: string;
+  };
+}
+
+const { item } = Astro.props;
+const { locale = 'en' } = Astro.params;
+
+const sectorProfiles: Record<string, {
+  summary: string;
+  focus: string[];
+  deliverables: string[];
+}> = {
+  'real-estate': {
+    summary: 'Dubai is the global epicenter of high-value real estate. We architect high-performance off-plan portal experiences, luxury brokerage platforms, interactive floorplan showcases, and instant WhatsApp inquiry capture routing to CRM workflows.',
+    focus: ['Bilingual (EN/AR) luxury property surfaces', 'Instant CRM & WhatsApp broker lead distribution', 'Core Web Vitals 100/100 fast image delivery for architectural galleries', 'Dedicated off-plan launch campaign landing engines'],
+    deliverables: ['Custom Real Estate Web Platform', 'Lead Routing & WhatsApp Automation', 'Off-Plan Marketing Landing Funnels', 'Technical SEO for High-Value Buyer Queries']
+  },
+  'hospitality': {
+    summary: 'For Dubai’s world-class dining, luxury resorts, and nightlife venues, digital touchpoints must mirror physical elegance. We engineer immersive booking flows, interactive menus, VIP concierge bots, and seamless reservation integrations.',
+    focus: ['Visual storytelling with restrained, high-speed 3D elements', 'Direct reservation & VIP table booking systems', 'Fast, mobile-first responsive menus with zero lag', 'Private event & corporate dining inquiry pipelines'],
+    deliverables: ['Flagship Hospitality Website', 'VIP Guest Experience & Concierge Flow', 'Search & Social Acquisition Campaigns', 'Interactive Digital Menus & Storytelling']
+  },
+  'healthcare': {
+    summary: 'Healthcare, aesthetics, and specialized clinics in the UAE require trustworthy, compliant, and accessible patient journeys with multilingual clarity and frictionless booking.',
+    focus: ['Multilingual patient intake and appointment booking', 'Doctor directory and clinical credential presentation', 'Strict compliance with regional data privacy standards', 'Local SEO for specialty treatments across Dubai & Abu Dhabi'],
+    deliverables: ['Clinical Platform & Patient Portal', 'Smart Appointment Scheduling Flow', 'Medical Specialty Content Engine', 'Local Search Authority & Map Optimization']
+  },
+  'beauty-wellness': {
+    summary: 'Luxury spas, aesthetic clinics, and wellness brands demand exceptional visual design, editorial prestige, and effortless client booking across mobile viewports.',
+    focus: ['Editorial typography and elevated brand identity systems', 'Mobile-optimized treatment booking and deposit payment flows', 'Automated client reminder and follow-up sequences', 'High-impact visual campaigns for Instagram and Meta'],
+    deliverables: ['Luxury Wellness Brand Identity', 'Treatment Booking Web Application', 'Social Content & Campaign Direction', 'Customer Retention Automation']
+  },
+  'finance': {
+    summary: 'Sovereign wealth funds, private equity firms, and DIFC/ADGM financial advisory firms require institutional authority, precision messaging, and uncompromised security.',
+    focus: ['Institutional design systems reflecting discretion and prestige', 'Decoupled, zero-vulnerability static architecture', 'Executive perspective publishing and thought leadership hubs', 'Strict compliance with financial promotion regulations'],
+    deliverables: ['Corporate Institutional Portal', 'Executive Brand & Presentation Suite', 'Regulatory & Compliance Disclosure Hub', 'Secure Client Investor Gateway']
+  },
+  'retail-ecommerce': {
+    summary: 'Omnichannel luxury retailers and direct-to-consumer brands need blisteringly fast storefronts, frictionless checkout, and regional payment integrations (Tabby, Tamara, Apple Pay).',
+    focus: ['Sub-second headless e-commerce storefronts', 'Seamless GCC payment gateway integrations', 'Dynamic search, filtering, and personalized merchandising', 'Automated post-purchase review and re-engagement flows'],
+    deliverables: ['Headless E-Commerce Platform', 'GCC Payment & Checkout Architecture', 'Product Photography & 3D Visuals', 'Paid Performance & Cart Recovery Engine']
+  }
+};
+
+const defaultProfile = {
+  summary: `We architect dedicated technology platforms, brand foundations, and operational automation tailored to commercial leaders in ${item.title.toLowerCase()} across Dubai and the UAE.`,
+  focus: [
+    'Bilingual digital surfaces engineered for high commercial conversion',
+    'Custom AI assistants for document search and operational efficiency',
+    'High-intent search authority in Dubai and GCC regional markets',
+    'Senior executive governance with transparent milestone delivery'
+  ],
+  deliverables: [
+    'Custom Sector Web Surface',
+    'Operational Workflow Automation',
+    'Brand & Category Positioning',
+    'Targeted Commercial Pipeline Strategy'
+  ]
+};
+
+const profile = sectorProfiles[item.slug] || defaultProfile;
+---
+
+<BaseLayout
+  title={`${item.title} Solutions & Practice | ${site.publicBrand}`}
+  description={profile.summary}
+>
+  <main class="min-h-screen bg-[#141418] text-[#F7F5F0] pt-32 pb-24">
+    <div class="content-container">
+      {/* Breadcrumb */}
+      <nav class="mb-6 flex items-center gap-2 text-xs text-[#8E8D9A]" aria-label="Breadcrumb">
+        <a href={`/${locale}/`} class="hover:text-[#F7F5F0]">Home</a>
+        <span>/</span>
+        <a href={`/${locale}/industries/`} class="hover:text-[#F7F5F0]">Industries</a>
+        <span>/</span>
+        <span class="text-[#7456F2]">{item.title}</span>
+      </nav>
+
+      {/* Main Header */}
+      <div class="max-w-3xl mb-16">
+        <span class="text-xs uppercase tracking-widest text-[#7456F2] font-semibold mb-2 block">
+          Sector Practice · Dubai, UAE
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-[#F7F5F0] mb-6">
+          {item.title}.
+        </h1>
+        <p class="text-lg md:text-xl text-[#8E8D9A] leading-relaxed">
+          {profile.summary}
+        </p>
+      </div>
+
+      {/* Strategic Focus & Deliverables Grid */}
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+        <div class="p-8 rounded-2xl bg-[#181820] border border-[#26262F]">
+          <span class="text-xs font-mono text-[#7456F2] font-bold block mb-3">SECTOR DEMANDS & STANDARDS</span>
+          <h2 class="text-2xl font-display font-medium text-[#F7F5F0] mb-4">
+            Critical Priorities for {item.title}
+          </h2>
+          <ul class="space-y-3">
+            {profile.focus.map((point) => (
+              <li class="flex items-start gap-3 text-sm text-[#D6D5DC]">
+                <span class="text-[#7456F2] font-bold mt-0.5">✓</span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="p-8 rounded-2xl bg-[#181820] border border-[#26262F]">
+          <span class="text-xs font-mono text-[#7456F2] font-bold block mb-3">PROVEN ARCHITECTURAL PACKAGES</span>
+          <h2 class="text-2xl font-display font-medium text-[#F7F5F0] mb-4">
+            Deliverables Clients Commission
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {profile.deliverables.map((del) => (
+              <div class="p-4 rounded-xl bg-[#141418] border border-[#26262F] flex flex-col justify-between">
+                <span class="text-xs font-semibold text-[#F7F5F0]">{del}</span>
+                <span class="text-[11px] text-[#7456F2] mt-3">Commission Service →</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Box */}
+      <div class="p-8 md:p-12 rounded-3xl bg-gradient-to-r from-[#181820] to-[#1E1D2A] border border-[#7456F2]/30 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+          <span class="text-xs font-mono text-[#7456F2] font-semibold block mb-2">INDUSTRY CONSULTATION</span>
+          <h3 class="text-2xl md:text-3xl font-display font-medium text-[#F7F5F0] mb-2">
+            Architect your next move in {item.title}.
+          </h3>
+          <p class="text-sm text-[#8E8D9A] max-w-xl">
+            Connect directly with our sector architects in Dubai to discuss technical requirements, competitive positioning, and delivery timelines.
+          </p>
+        </div>
+        <a
+          href={`/${locale}/contact/?division=${encodeURIComponent(item.title)}#project-brief`}
+          class="btn btn-primary shrink-0 text-xs px-6 py-3.5"
+        >
+          Discuss Your Project Brief →
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

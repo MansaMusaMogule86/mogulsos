@@ -1,0 +1,221 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { enabledLocales } from '../../../i18n/config';
+import { siteConfig } from '../../../config/site';
+
+export function getStaticPaths() {
+  const documents = ['privacy', 'terms', 'cookies', 'accessibility'] as const;
+  return enabledLocales.flatMap((locale) =>
+    documents.map((document) => ({
+      params: { locale, document },
+      props: { document }
+    }))
+  );
+}
+
+interface Props {
+  document: 'privacy' | 'terms' | 'cookies' | 'accessibility';
+}
+
+const { document: docType } = Astro.props;
+
+const docMeta = {
+  privacy: {
+    title: 'Privacy Policy',
+    eyebrow: 'Legal & Compliance',
+    lastUpdated: 'February 2026',
+    lead: 'How Mansas Moguls L.L.C-FZ collects, manages, and protects your information in accordance with UAE Federal Decree Law No. 45 of 2021 on Personal Data Protection.'
+  },
+  terms: {
+    title: 'Terms of Engagement',
+    eyebrow: 'Commercial Governance',
+    lastUpdated: 'February 2026',
+    lead: 'The standard contractual terms, intellectual property protections, and service delivery principles governing engagements with Mansas Moguls L.L.C-FZ.'
+  },
+  cookies: {
+    title: 'Cookie & Tracking Notice',
+    eyebrow: 'Data Transparency',
+    lastUpdated: 'February 2026',
+    lead: 'Our commitment to privacy-preserving digital experiences and minimal operational state management.'
+  },
+  accessibility: {
+    title: 'Accessibility Statement',
+    eyebrow: 'Inclusive Design',
+    lastUpdated: 'February 2026',
+    lead: 'Our adherence to WCAG 2.1 AA standards to ensure equal access and refined digital usability for every user.'
+  }
+}[docType];
+---
+
+<BaseLayout
+  title={`${docMeta.title} | ${siteConfig.brand.name}`}
+  description={docMeta.lead}
+>
+  <main class="min-h-screen bg-[#141418] text-[#F7F5F0] pt-32 pb-24">
+    <div class="content-container">
+      <div class="max-w-3xl">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs uppercase tracking-widest text-[#7456F2] font-semibold">{docMeta.eyebrow}</span>
+          <span class="text-xs text-[#8E8D9A]">Updated {docMeta.lastUpdated}</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-display font-medium tracking-tight mb-6">
+          {docMeta.title}
+        </h1>
+        <p class="text-lg text-[#8E8D9A] leading-relaxed mb-12 pb-8 border-b border-[#26262F]">
+          {docMeta.lead}
+        </p>
+
+        {docType === 'privacy' && (
+          <div class="space-y-10 text-sm md:text-base leading-relaxed text-[#D6D5DC]">
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">1. Data Controller Identification</h2>
+              <p>
+                This policy applies to personal data collected and processed by <strong>{siteConfig.company.legalName}</strong> ({siteConfig.brand.name}), registered in Dubai, United Arab Emirates. Direct all privacy inquiries to <a href={`mailto:${siteConfig.contact.email}`} class="text-[#7456F2] underline hover:text-[#9A82FC]">{siteConfig.contact.email}</a>.
+              </p>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">2. Information We Collect</h2>
+              <p>
+                We collect personal information solely when you voluntarily provide it through our website inquiries, the guided project concierge questionnaire, direct email correspondence, or business consultations. This data includes:
+              </p>
+              <ul class="list-disc pl-5 space-y-1.5 text-[#8E8D9A]">
+                <li>Contact credentials (name, business email, phone or WhatsApp number).</li>
+                <li>Commercial context (company name, sector, project scope, target launch windows, budget considerations).</li>
+                <li>Technical communication logs necessary for delivering technical proposals and service execution.</li>
+              </ul>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">3. Purpose & Legal Basis of Processing</h2>
+              <p>
+                We process your data strictly under legitimate business interests and contractual preparation, specifically to:
+              </p>
+              <ul class="list-disc pl-5 space-y-1.5 text-[#8E8D9A]">
+                <li>Assess incoming project briefs and prepare architectural recommendations.</li>
+                <li>Communicate proposals, statements of work, and delivery timelines.</li>
+                <li>Comply with UAE commercial and regulatory requirements.</li>
+              </ul>
+              <p>We do not sell, rent, or trade your personal or commercial data to third-party advertising networks.</p>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">4. Data Retention & Security</h2>
+              <p>
+                Client project inquiries and communications are retained only as long as necessary to fulfill commercial and legal obligations. We employ TLS encryption, access controls, and strict confidentiality protocols to prevent unauthorized access or disclosure.
+              </p>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">5. Your Rights Under UAE Law</h2>
+              <p>
+                Under UAE Federal Decree Law No. 45 of 2021, you have the right to request access to your personal data, request rectification of inaccurate records, or request deletion of your information from our communications registry. Contact us at <a href={`mailto:${siteConfig.contact.email}`} class="text-[#7456F2] underline hover:text-[#9A82FC]">{siteConfig.contact.email}</a>.
+              </p>
+            </section>
+          </div>
+        )}
+
+        {docType === 'terms' && (
+          <div class="space-y-10 text-sm md:text-base leading-relaxed text-[#D6D5DC]">
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">1. Introduction & Scope</h2>
+              <p>
+                These terms govern the use of this website and outline our general commercial engagement standards. Formal client engagements are governed by bespoke Statements of Work (SOW) executed between <strong>{siteConfig.company.legalName}</strong> and the commissioning client.
+              </p>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">2. Intellectual Property Rights</h2>
+              <p>
+                All brand identity assets, architectural diagrams, visual sculptures, proprietary software prototypes, and editorial copy displayed on this website are the exclusive intellectual property of {siteConfig.brand.name} unless otherwise credited. Commercial work delivered to clients transfers according to the explicit terms established in each project's Statement of Work upon receipt of full settlement.
+              </p>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">3. Deliverable Guarantees & Non-Reliance</h2>
+              <p>
+                Illustrative interfaces, conceptual capability demonstrations, and interactive calculators on this website serve solely as capability benchmarks and do not constitute binding engineering specifications or guaranteed financial outcomes.
+              </p>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">4. Governing Law & Jurisdiction</h2>
+              <p>
+                These terms and any non-contractual obligations arising from them are governed by and construed in accordance with the laws of the Emirate of Dubai and the applicable Federal Laws of the United Arab Emirates.
+              </p>
+            </section>
+          </div>
+        )}
+
+        {docType === 'cookies' && (
+          <div class="space-y-10 text-sm md:text-base leading-relaxed text-[#D6D5DC]">
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">1. Our Privacy-First Approach</h2>
+              <p>
+                {siteConfig.brand.name} believes in building high-performance, respectful digital experiences. We do not load intrusive third-party cross-site behavioral tracking scripts, invasive fingerprinting trackers, or third-party marketing pixels on our public website.
+              </p>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">2. Local State & Essential Storage</h2>
+              <p>
+                Our interactive tools (such as the Project Concierge modal and the Decision Framework questionnaire) store state locally in your browser session (<code class="text-xs bg-[#1C1C24] px-1.5 py-0.5 rounded text-[#EAE4FF]">localStorage</code> or <code class="text-xs bg-[#1C1C24] px-1.5 py-0.5 rounded text-[#EAE4FF]">sessionStorage</code>) so your selections are preserved during your visit. This data remains on your device and is never transmitted to advertising syndicates.
+              </p>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">3. Managing Your Browser Preferences</h2>
+              <p>
+                You can configure your browser to block or clear cookies and local storage at any time. Our website remains completely readable, navigable, and accessible with local storage disabled.
+              </p>
+            </section>
+          </div>
+        )}
+
+        {docType === 'accessibility' && (
+          <div class="space-y-10 text-sm md:text-base leading-relaxed text-[#D6D5DC]">
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">1. Commitment to Accessible Architecture</h2>
+              <p>
+                {siteConfig.brand.name} is dedicated to providing a digital platform that is accessible to all individuals, including those with visual, motor, auditory, or cognitive impairments. We target conformance with the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA.
+              </p>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">2. Key Accessibility Features Implemented</h2>
+              <ul class="list-disc pl-5 space-y-2 text-[#8E8D9A]">
+                <li><strong>Keyboard Operability:</strong> All interactive components, buttons, navigation menus, and questionnaire controls are fully operable via standard keyboard tabs and space/enter keys.</li>
+                <li><strong>Contrast Compliance:</strong> Contrast ratios between typography and backgrounds exceed WCAG AA minimum thresholds in both dark and light editorial surfaces.</li>
+                <li><strong>Semantic HTML & ARIA:</strong> Structured landmarks, proper heading hierarchy (H1 through H4), and descriptive ARIA roles assist screen readers in interpreting complex layouts.</li>
+                <li><strong>Graceful Degradation:</strong> If WebGL or JavaScript is restricted, static visual fallbacks ensure no information, navigation link, or contact channel is obstructed.</li>
+                <li><strong>Reduced Motion:</strong> We respect the operating system's <code class="text-xs bg-[#1C1C24] px-1.5 py-0.5 rounded text-[#EAE4FF]">prefers-reduced-motion</code> setting, disabling intensive 3D camera animations.</li>
+              </ul>
+            </section>
+
+            <section class="space-y-3">
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0]">3. Feedback & Contact</h2>
+              <p>
+                If you encounter any barrier while using this website or require content in an alternative format, please email our engineering team directly at <a href={`mailto:${siteConfig.contact.email}`} class="text-[#7456F2] underline hover:text-[#9A82FC]">{siteConfig.contact.email}</a>.
+              </p>
+            </section>
+          </div>
+        )}
+
+        <div class="mt-16 pt-8 border-t border-[#26262F] flex flex-wrap items-center justify-between gap-4">
+          <a
+            href="/en/"
+            class="text-xs uppercase tracking-widest text-[#8E8D9A] hover:text-[#F7F5F0] transition-colors"
+          >
+            ← Return to Homepage
+          </a>
+          <a
+            href="/en/contact/"
+            class="text-xs uppercase tracking-widest text-[#7456F2] hover:text-[#9A82FC] font-semibold transition-colors"
+          >
+            Contact Legal & Management →
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

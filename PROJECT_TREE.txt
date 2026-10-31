@@ -1,0 +1,617 @@
+mansas-moguls-immersive/
+|-- .github/
+|   |-- ISSUE_TEMPLATE/
+|   |   |-- bug-report.md
+|   |   `-- feature-request.md
+|   `-- workflows/
+|       |-- ci.yml
+|       |-- lighthouse.yml
+|       `-- preview.yml
+|-- docs/
+|   |-- 00-master-plan.md
+|   |-- 01-site-map.md
+|   |-- 02-scroll-storyboard.md
+|   |-- 03-design-system.md
+|   |-- 04-asset-inventory.md
+|   |-- 05-content-seo.md
+|   |-- 06-integrations-security.md
+|   |-- 07-performance-qa.md
+|   |-- 08-build-order.md
+|   |-- 09-component-contracts.md
+|   `-- 10-implementation-prompts.md
+|-- e2e/
+|   |-- accessibility.spec.ts
+|   |-- forms.spec.ts
+|   |-- home.spec.ts
+|   |-- navigation.spec.ts
+|   |-- scroll-fallback.spec.ts
+|   `-- services.spec.ts
+|-- public/
+|   |-- 3d/
+|   |   |-- decoders/
+|   |   |   `-- README.md
+|   |   |-- environments/
+|   |   |   `-- README.md
+|   |   |-- models/
+|   |   |   |-- divisions/
+|   |   |   |   |-- ai/
+|   |   |   |   |   `-- README.md
+|   |   |   |   |-- creative/
+|   |   |   |   |   `-- README.md
+|   |   |   |   |-- digital/
+|   |   |   |   |   `-- README.md
+|   |   |   |   |-- growth/
+|   |   |   |   |   `-- README.md
+|   |   |   |   `-- strategy/
+|   |   |   |       `-- README.md
+|   |   |   |-- hero/
+|   |   |   |   `-- README.md
+|   |   |   `-- shared/
+|   |   |       `-- README.md
+|   |   `-- textures/
+|   |       |-- ktx2/
+|   |       |   `-- README.md
+|   |       `-- noise/
+|   |           `-- README.md
+|   |-- brand/
+|   |   |-- brand-guidelines/
+|   |   |   `-- README.md
+|   |   |-- logos/
+|   |   |   |-- divisions/
+|   |   |   |   `-- README.md
+|   |   |   `-- official/
+|   |   |       `-- README.md
+|   |   `-- README.md
+|   |-- case-studies/
+|   |   |-- client-logos/
+|   |   |   `-- README.md
+|   |   |-- screenshots/
+|   |   |   `-- README.md
+|   |   |-- videos/
+|   |   |   `-- README.md
+|   |   `-- README.md
+|   |-- downloads/
+|   |   |-- company-profile/
+|   |   |   `-- README.md
+|   |   |-- guides/
+|   |   |   `-- README.md
+|   |   `-- press-kit/
+|   |       `-- README.md
+|   |-- favicon/
+|   |   `-- README.md
+|   |-- fonts/
+|   |   `-- README.md
+|   |-- icons/
+|   |   |-- services/
+|   |   |   `-- README.md
+|   |   `-- social/
+|   |       `-- README.md
+|   |-- locale/
+|   |   `-- README.md
+|   |-- media/
+|   |   |-- industries/
+|   |   |   `-- README.md
+|   |   |-- press/
+|   |   |   `-- README.md
+|   |   |-- services/
+|   |   |   `-- README.md
+|   |   |-- solutions/
+|   |   |   `-- README.md
+|   |   |-- studio/
+|   |   |   `-- README.md
+|   |   `-- team/
+|   |       `-- README.md
+|   |-- posters/
+|   |   |-- divisions/
+|   |   |   `-- README.md
+|   |   |-- hero/
+|   |   |   `-- README.md
+|   |   `-- work/
+|   |       `-- README.md
+|   |-- social/
+|   |   |-- campaigns/
+|   |   |   `-- README.md
+|   |   `-- og/
+|   |       `-- README.md
+|   |-- videos/
+|   |   |-- divisions/
+|   |   |   `-- README.md
+|   |   |-- hero/
+|   |   |   `-- README.md
+|   |   |-- showreel/
+|   |   |   `-- README.md
+|   |   `-- work/
+|   |       `-- README.md
+|   |-- ASSET-MANIFEST.md
+|   |-- manifest.webmanifest
+|   `-- robots.txt
+|-- scripts/
+|   |-- audit-assets.mjs
+|   |-- build-content-index.mjs
+|   |-- check-translations.mjs
+|   |-- compress-models.mjs
+|   |-- generate-og.mjs
+|   |-- optimize-images.mjs
+|   |-- report-structure.mjs
+|   `-- validate-routes.mjs
+|-- src/
+|   |-- 3d/
+|   |   |-- camera/
+|   |   |   |-- CameraEasing.ts
+|   |   |   |-- CameraKeyframes.ts
+|   |   |   |-- CameraPath.ts
+|   |   |   `-- CameraRig.tsx
+|   |   |-- config/
+|   |   |   `-- worlds.ts
+|   |   |-- controls/
+|   |   |   |-- DeviceOrientation.tsx
+|   |   |   |-- PointerParallax.tsx
+|   |   |   `-- SceneInteractions.ts
+|   |   |-- core/
+|   |   |   |-- PerformanceMonitor.ts
+|   |   |   |-- Renderer.ts
+|   |   |   |-- RenderLoop.ts
+|   |   |   |-- SceneManager.ts
+|   |   |   |-- SceneRegistry.ts
+|   |   |   `-- WorldClock.ts
+|   |   |-- lights/
+|   |   |   |-- DynamicLights.tsx
+|   |   |   |-- StudioLighting.tsx
+|   |   |   `-- WorldLighting.tsx
+|   |   |-- loaders/
+|   |   |   |-- AssetPreloader.ts
+|   |   |   |-- EnvironmentLoader.ts
+|   |   |   |-- ModelLoader.tsx
+|   |   |   `-- TextureLoader.ts
+|   |   |-- materials/
+|   |   |   |-- GlassMaterial.tsx
+|   |   |   |-- GoldMaterial.tsx
+|   |   |   |-- HologramMaterial.tsx
+|   |   |   `-- NeonMaterial.tsx
+|   |   |-- objects/
+|   |   |   |-- BrandEmblem.tsx
+|   |   |   |-- FloatingPanel.tsx
+|   |   |   |-- GridStructure.tsx
+|   |   |   |-- LightTrail.tsx
+|   |   |   |-- OrbitalRing.tsx
+|   |   |   |-- ParticleField.tsx
+|   |   |   |-- SignalLines.tsx
+|   |   |   `-- WorldPortal.tsx
+|   |   |-- postprocessing/
+|   |   |   |-- ColorGrading.tsx
+|   |   |   |-- EffectsComposer.tsx
+|   |   |   `-- SelectiveBloom.tsx
+|   |   |-- scenes/
+|   |   |   |-- AIWorld.tsx
+|   |   |   |-- CreativeWorld.tsx
+|   |   |   |-- DigitalWorld.tsx
+|   |   |   |-- GrowthWorld.tsx
+|   |   |   |-- OutroScene.tsx
+|   |   |   |-- PortalScene.tsx
+|   |   |   |-- ProofScene.tsx
+|   |   |   |-- StrategyWorld.tsx
+|   |   |   `-- UniverseScene.tsx
+|   |   |-- shaders/
+|   |   |   |-- hologram.frag.glsl
+|   |   |   |-- noise.glsl
+|   |   |   |-- particles.frag.glsl
+|   |   |   |-- particles.vert.glsl
+|   |   |   `-- transition.frag.glsl
+|   |   `-- utils/
+|   |       |-- assetPaths.ts
+|   |       |-- disposeResources.ts
+|   |       |-- qualityTier.ts
+|   |       `-- webglSupport.ts
+|   |-- assets/
+|   |   |-- icons/
+|   |   |   `-- README.md
+|   |   |-- illustrations/
+|   |   |   `-- README.md
+|   |   |-- images/
+|   |   |   |-- blog/
+|   |   |   |   `-- README.md
+|   |   |   |-- divisions/
+|   |   |   |   `-- README.md
+|   |   |   |-- home/
+|   |   |   |   `-- README.md
+|   |   |   |-- industries/
+|   |   |   |   `-- README.md
+|   |   |   |-- services/
+|   |   |   |   `-- README.md
+|   |   |   `-- work/
+|   |   |       `-- README.md
+|   |   `-- typography/
+|   |       `-- README.md
+|   |-- components/
+|   |   |-- about/
+|   |   |   |-- FounderStory.astro
+|   |   |   |-- HistoryTimeline.tsx
+|   |   |   |-- MissionValues.astro
+|   |   |   |-- MogulsUniverseMap.tsx
+|   |   |   |-- PartnerLogos.astro
+|   |   |   |-- StudioPrinciples.astro
+|   |   |   `-- TeamGrid.astro
+|   |   |-- accessibility/
+|   |   |   |-- AccessibleModal.tsx
+|   |   |   |-- KeyboardHint.tsx
+|   |   |   |-- ReducedMotionNotice.tsx
+|   |   |   |-- ScreenReaderStatus.astro
+|   |   |   `-- SkipLink.astro
+|   |   |-- analytics/
+|   |   |   |-- AnalyticsProvider.astro
+|   |   |   |-- ConsentGate.tsx
+|   |   |   `-- EventTracker.tsx
+|   |   |-- blog/
+|   |   |   |-- ArticleCard.astro
+|   |   |   |-- ArticleHero.astro
+|   |   |   |-- ArticleMeta.astro
+|   |   |   |-- ArticleTOC.tsx
+|   |   |   |-- AuthorProfile.astro
+|   |   |   |-- CategoryFilter.tsx
+|   |   |   `-- RelatedArticles.astro
+|   |   |-- divisions/
+|   |   |   |-- DivisionCard.astro
+|   |   |   |-- DivisionCrossLinks.astro
+|   |   |   |-- DivisionCTA.astro
+|   |   |   |-- DivisionGrid.astro
+|   |   |   |-- DivisionHero.astro
+|   |   |   |-- DivisionMetrics.astro
+|   |   |   |-- DivisionScenePoster.astro
+|   |   |   |-- DivisionServices.astro
+|   |   |   `-- DivisionWorld.tsx
+|   |   |-- forms/
+|   |   |   |-- BookingForm.tsx
+|   |   |   |-- ConsentCheckbox.tsx
+|   |   |   |-- ContactForm.tsx
+|   |   |   |-- FormError.tsx
+|   |   |   |-- FormProgress.tsx
+|   |   |   |-- FormSuccess.tsx
+|   |   |   |-- LeadForm.tsx
+|   |   |   |-- NewsletterForm.tsx
+|   |   |   `-- ProjectBriefForm.tsx
+|   |   |-- global/
+|   |   |   |-- AnnouncementBar.astro
+|   |   |   |-- BrandLogo.astro
+|   |   |   |-- CookieConsent.tsx
+|   |   |   |-- FloatingContact.tsx
+|   |   |   |-- GlobalCTA.astro
+|   |   |   |-- Preloader.tsx
+|   |   |   |-- ProgressIndicator.tsx
+|   |   |   |-- SectionEyebrow.astro
+|   |   |   |-- SiteFooter.astro
+|   |   |   `-- SiteHeader.astro
+|   |   |-- hero/
+|   |   |   |-- HeroActions.astro
+|   |   |   |-- HeroFallback.astro
+|   |   |   |-- HeroHeadline.astro
+|   |   |   |-- HeroSceneLoader.tsx
+|   |   |   |-- HeroScrollCue.tsx
+|   |   |   |-- HeroSoundToggle.tsx
+|   |   |   |-- HeroStage.tsx
+|   |   |   `-- HomeIntro.astro
+|   |   |-- industries/
+|   |   |   |-- IndustryCTA.astro
+|   |   |   |-- IndustryGrid.astro
+|   |   |   |-- IndustryHero.astro
+|   |   |   `-- IndustryUseCases.astro
+|   |   |-- navigation/
+|   |   |   |-- Breadcrumbs.astro
+|   |   |   |-- CommandPalette.tsx
+|   |   |   |-- DesktopNav.astro
+|   |   |   |-- LanguageSwitcher.tsx
+|   |   |   |-- MegaMenu.tsx
+|   |   |   |-- MobileNav.tsx
+|   |   |   |-- NavProgress.tsx
+|   |   |   |-- ServicesMegaMenu.astro
+|   |   |   `-- StickyHeader.astro
+|   |   |-- resources/
+|   |   |   |-- DownloadGate.tsx
+|   |   |   |-- ResourceCard.astro
+|   |   |   `-- ResourceFilters.tsx
+|   |   |-- scroll/
+|   |   |   |-- SceneProgress.tsx
+|   |   |   |-- ScrollAnchorNav.tsx
+|   |   |   |-- ScrollCanvas.tsx
+|   |   |   |-- ScrollChapter.tsx
+|   |   |   |-- ScrollDebugOverlay.tsx
+|   |   |   |-- ScrollFallback.astro
+|   |   |   |-- ScrollTimeline.tsx
+|   |   |   `-- StickyStoryPanel.astro
+|   |   |-- seo/
+|   |   |   |-- ArticleSchema.astro
+|   |   |   |-- BreadcrumbSchema.astro
+|   |   |   |-- FAQSchema.astro
+|   |   |   |-- HreflangLinks.astro
+|   |   |   |-- JsonLD.astro
+|   |   |   |-- OpenGraph.astro
+|   |   |   |-- SEOHead.astro
+|   |   |   `-- ServiceSchema.astro
+|   |   |-- services/
+|   |   |   |-- ServiceCard.astro
+|   |   |   |-- ServiceDeliverables.astro
+|   |   |   |-- ServiceFAQ.astro
+|   |   |   |-- ServiceHero.astro
+|   |   |   |-- ServiceLeadCTA.astro
+|   |   |   |-- ServiceOutcomes.astro
+|   |   |   |-- ServiceProcess.astro
+|   |   |   |-- ServiceProof.astro
+|   |   |   `-- ServiceRelated.astro
+|   |   |-- solutions/
+|   |   |   |-- SolutionCard.astro
+|   |   |   |-- SolutionCTA.astro
+|   |   |   |-- SolutionFlow.astro
+|   |   |   `-- SolutionHero.astro
+|   |   |-- three/
+|   |   |   |-- CanvasFallback.astro
+|   |   |   |-- QualityController.tsx
+|   |   |   |-- SceneBoundary.tsx
+|   |   |   |-- SceneRouter.tsx
+|   |   |   |-- WebGLDetector.tsx
+|   |   |   |-- WebGLProvider.tsx
+|   |   |   `-- WorldCanvas.tsx
+|   |   |-- ui/
+|   |   |   |-- Accordion.tsx
+|   |   |   |-- Badge.astro
+|   |   |   |-- Button.astro
+|   |   |   |-- Container.astro
+|   |   |   |-- Divider.astro
+|   |   |   |-- IconButton.tsx
+|   |   |   |-- Input.tsx
+|   |   |   |-- LogoTicker.astro
+|   |   |   |-- MagneticButton.tsx
+|   |   |   |-- Marquee.astro
+|   |   |   |-- Modal.tsx
+|   |   |   |-- Pill.astro
+|   |   |   |-- RevealText.tsx
+|   |   |   |-- SectionHeading.astro
+|   |   |   |-- Select.tsx
+|   |   |   |-- Tabs.tsx
+|   |   |   |-- Textarea.tsx
+|   |   |   `-- Tooltip.tsx
+|   |   `-- work/
+|   |       |-- CaseStudyCard.astro
+|   |       |-- CaseStudyHero.astro
+|   |       |-- NextCaseStudy.astro
+|   |       |-- ResultsGrid.astro
+|   |       |-- WorkFilters.tsx
+|   |       |-- WorkGallery.tsx
+|   |       `-- WorkGrid.astro
+|   |-- config/
+|   |   |-- analytics.ts
+|   |   |-- assets.ts
+|   |   |-- cookies.ts
+|   |   |-- feature-flags.ts
+|   |   |-- integrations.ts
+|   |   |-- motion.ts
+|   |   |-- routes.ts
+|   |   |-- seo.ts
+|   |   `-- site.ts
+|   |-- content/
+|   |   |-- case-studies/
+|   |   |   `-- README.md
+|   |   |-- insights/
+|   |   |   `-- en/
+|   |   |       `-- immersive-web-design.mdx
+|   |   |-- pages/
+|   |   |   `-- README.md
+|   |   |-- resources/
+|   |   |   `-- README.md
+|   |   `-- README.md
+|   |-- data/
+|   |   |-- awards.ts
+|   |   |-- case-studies.ts
+|   |   |-- divisions.ts
+|   |   |-- faqs.ts
+|   |   |-- industries.ts
+|   |   |-- navigation.ts
+|   |   |-- partners.ts
+|   |   |-- services.ts
+|   |   |-- socials.ts
+|   |   |-- solutions.ts
+|   |   |-- solutionsCopy.ts
+|   |   |-- stats.ts
+|   |   |-- team.ts
+|   |   `-- testimonials.ts
+|   |-- hooks/
+|   |   |-- useConsent.ts
+|   |   |-- useIntersection.ts
+|   |   |-- useLeadForm.ts
+|   |   |-- useLocale.ts
+|   |   |-- useMediaQuery.ts
+|   |   |-- useQualityTier.ts
+|   |   |-- useReducedMotion.ts
+|   |   |-- useSceneProgress.ts
+|   |   `-- useWebGLSupport.ts
+|   |-- i18n/
+|   |   |-- dictionaries/
+|   |   |   |-- ar.json
+|   |   |   |-- en.json
+|   |   |   |-- fr.json
+|   |   |   `-- zh.json
+|   |   |-- config.ts
+|   |   |-- format.ts
+|   |   |-- hreflang.ts
+|   |   `-- translate.ts
+|   |-- layouts/
+|   |   |-- ArticleLayout.astro
+|   |   |-- BaseLayout.astro
+|   |   |-- CaseStudyLayout.astro
+|   |   |-- DivisionLayout.astro
+|   |   |-- LegalLayout.astro
+|   |   |-- MarketingLayout.astro
+|   |   `-- ServiceLayout.astro
+|   |-- lib/
+|   |   |-- ai/
+|   |   |   |-- guardrails.ts
+|   |   |   |-- knowledge.ts
+|   |   |   |-- prompts.ts
+|   |   |   `-- retrieval.ts
+|   |   |-- analytics/
+|   |   |   |-- attribution.ts
+|   |   |   |-- consent.ts
+|   |   |   |-- trackEvent.ts
+|   |   |   `-- utm.ts
+|   |   |-- crm/
+|   |   |   |-- fieldMapping.ts
+|   |   |   |-- ghl.ts
+|   |   |   |-- ghlContacts.ts
+|   |   |   |-- ghlOpportunities.ts
+|   |   |   |-- ghlWorkflows.ts
+|   |   |   `-- idempotency.ts
+|   |   |-- email/
+|   |   |   |-- contactNotification.ts
+|   |   |   `-- emailTemplates.ts
+|   |   |-- forms/
+|   |   |   |-- formToLead.ts
+|   |   |   |-- sanitizers.ts
+|   |   |   |-- schemas.ts
+|   |   |   `-- spamGuards.ts
+|   |   |-- performance/
+|   |   |   |-- connectionTier.ts
+|   |   |   |-- deviceTier.ts
+|   |   |   |-- lazyMedia.ts
+|   |   |   `-- preloadAssets.ts
+|   |   |-- security/
+|   |   |   |-- captcha.ts
+|   |   |   |-- headers.ts
+|   |   |   |-- rateLimit.ts
+|   |   |   `-- requestOrigin.ts
+|   |   |-- seo/
+|   |   |   |-- breadcrumbs.ts
+|   |   |   |-- hreflang.ts
+|   |   |   |-- internalLinks.ts
+|   |   |   |-- jsonLd.ts
+|   |   |   |-- links.ts
+|   |   |   |-- metadata.ts
+|   |   |   |-- robots.ts
+|   |   |   `-- schema.ts
+|   |   `-- utils/
+|   |       |-- assert.ts
+|   |       |-- dates.ts
+|   |       |-- format.ts
+|   |       |-- slugify.ts
+|   |       `-- strings.ts
+|   |-- motion/
+|   |   |-- config/
+|   |   |   `-- scroll-chapters.ts
+|   |   |-- gestures/
+|   |   |   |-- cursorMagnet.ts
+|   |   |   |-- dragRotate.ts
+|   |   |   `-- pointerParallax.ts
+|   |   |-- scroll/
+|   |   |   |-- createScrollScene.ts
+|   |   |   |-- pinSection.ts
+|   |   |   |-- scrollCleanup.ts
+|   |   |   |-- scrollProgress.ts
+|   |   |   `-- scrollToChapter.ts
+|   |   |-- timelines/
+|   |   |   |-- divisionTimeline.ts
+|   |   |   |-- heroTimeline.ts
+|   |   |   |-- outroTimeline.ts
+|   |   |   |-- universeTimeline.ts
+|   |   |   `-- workTimeline.ts
+|   |   |-- transitions/
+|   |   |   |-- colorTransition.ts
+|   |   |   |-- maskReveal.ts
+|   |   |   |-- pageTransition.ts
+|   |   |   |-- sceneTransition.ts
+|   |   |   `-- textReveal.ts
+|   |   `-- utils/
+|   |       |-- gsapContext.ts
+|   |       |-- matchMedia.ts
+|   |       `-- reduceMotion.ts
+|   |-- pages/
+|   |   |-- [locale]/
+|   |   |   |-- about/
+|   |   |   |   `-- index.astro
+|   |   |   |-- careers/
+|   |   |   |   `-- index.astro
+|   |   |   |-- contact/
+|   |   |   |   `-- index.astro
+|   |   |   |-- faq/
+|   |   |   |   `-- index.astro
+|   |   |   |-- industries/
+|   |   |   |   |-- [slug].astro
+|   |   |   |   `-- index.astro
+|   |   |   |-- insights/
+|   |   |   |   |-- [slug].astro
+|   |   |   |   `-- index.astro
+|   |   |   |-- legal/
+|   |   |   |   `-- [document].astro
+|   |   |   |-- moguls/
+|   |   |   |   `-- index.astro
+|   |   |   |-- our-universe/
+|   |   |   |   `-- index.astro
+|   |   |   |-- process/
+|   |   |   |   `-- index.astro
+|   |   |   |-- resources/
+|   |   |   |   `-- index.astro
+|   |   |   |-- services/
+|   |   |   |   |-- [division]/
+|   |   |   |   |   |-- [service].astro
+|   |   |   |   |   `-- index.astro
+|   |   |   |   `-- index.astro
+|   |   |   |-- solutions/
+|   |   |   |   |-- [slug].astro
+|   |   |   |   `-- index.astro
+|   |   |   |-- start-a-project/
+|   |   |   |   `-- index.astro
+|   |   |   |-- work/
+|   |   |   |   |-- [slug].astro
+|   |   |   |   `-- index.astro
+|   |   |   `-- index.astro
+|   |   |-- api/
+|   |   |   |-- ai/
+|   |   |   |   `-- concierge.ts
+|   |   |   |-- booking.ts
+|   |   |   |-- contact.ts
+|   |   |   |-- health.ts
+|   |   |   |-- leads.ts
+|   |   |   `-- newsletter.ts
+|   |   |-- 404.astro
+|   |   `-- index.astro
+|   |-- state/
+|   |   |-- consentStore.ts
+|   |   |-- experienceStore.ts
+|   |   |-- leadStore.ts
+|   |   `-- navStore.ts
+|   |-- styles/
+|   |   |-- components.css
+|   |   |-- fonts.css
+|   |   |-- global.css
+|   |   |-- layout.css
+|   |   |-- motion.css
+|   |   |-- rtl.css
+|   |   |-- tokens.css
+|   |   |-- typography.css
+|   |   `-- utilities.css
+|   |-- types/
+|   |   |-- api.ts
+|   |   |-- article.ts
+|   |   |-- caseStudy.ts
+|   |   |-- division.ts
+|   |   |-- i18n.ts
+|   |   |-- lead.ts
+|   |   |-- navigation.ts
+|   |   |-- scene.ts
+|   |   |-- seo.ts
+|   |   `-- service.ts
+|   |-- content.config.ts
+|   `-- env.d.ts
+|-- unit/
+|   |-- lead-validation.test.ts
+|   |-- routes.test.ts
+|   |-- seo.test.ts
+|   `-- services.test.ts
+|-- .editorconfig
+|-- .env.development.example
+|-- .env.example
+|-- .env.production.example
+|-- .gitignore
+|-- .prettierrc.json
+|-- astro.config.mjs
+|-- FILE-INVENTORY.json
+|-- package.json
+|-- README.md
+|-- tsconfig.json
+`-- vercel.json

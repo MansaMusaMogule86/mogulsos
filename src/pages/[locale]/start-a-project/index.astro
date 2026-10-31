@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { enabledLocales } from '../../../i18n/config';
+import { site } from '../../../config/site';
+import ContactPageForm from '../../../components/contact/ContactPageForm';
+
+export function getStaticPaths() {
+  return enabledLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.props;
+---
+
+<BaseLayout
+  title={`Start a Project | ${site.publicBrand}`}
+  description="Commission digital platforms, AI systems, brand design, or strategic roadmaps with Mansas Moguls in Dubai."
+  locale={locale}
+>
+  <main class="min-h-screen bg-[#141418] text-[#F7F5F0] pt-32 pb-24">
+    <div class="content-container">
+      <div class="max-w-3xl mb-12">
+        <span class="text-xs uppercase tracking-widest text-[#7456F2] font-semibold mb-2 block">
+          Project Intake & Scope Initiation
+        </span>
+        <h1 class="text-4xl md:text-5xl font-display font-medium tracking-tight text-[#F7F5F0] mb-4">
+          Start a Project.
+        </h1>
+        <p class="text-lg text-[#8E8D9A] leading-relaxed">
+          Tell us about your objectives, timelines, and preferred scope model. We assess incoming briefs within 24 hours and provide an initial architectural perspective and delivery roadmap.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-8">
+          <ContactPageForm client:load />
+        </div>
+
+        <div class="lg:col-span-4 space-y-6">
+          <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+            <h3 class="text-base font-display font-medium text-[#F7F5F0] mb-2">What Happens Next?</h3>
+            <ol class="text-xs text-[#8E8D9A] space-y-3 pl-4 list-decimal">
+              <li><strong>Triage & Review:</strong> Our senior practice leads evaluate your requirements against commercial benchmarks.</li>
+              <li><strong>Discovery Alignment:</strong> We schedule a 30-minute consultation (in-person in Dubai or remote) under mutual NDA.</li>
+              <li><strong>Architectural SOW:</strong> We present a phased Statement of Work with fixed deliverables and timelines.</li>
+            </ol>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+            <h3 class="text-base font-display font-medium text-[#F7F5F0] mb-2">Prefer Instant Chat?</h3>
+            <p class="text-xs text-[#8E8D9A] mb-4">
+              For rapid inquiries or time-sensitive projects, connect directly with our partner desk on WhatsApp.
+            </p>
+            <a
+              href={site.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-secondary-dark text-xs w-full justify-center"
+            >
+              Continue on WhatsApp →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,400 @@
+---
+import BrandLogo from './BrandLogo.astro';
+import { mainNavigation } from '../../data/navigation';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header" id="site-header">
+  <div class="container-wide header-inner">
+    <BrandLogo locale={locale} />
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <ul class="nav-list">
+        {
+          mainNavigation.map((item) => {
+            const href = `/${locale}/${item.href}`;
+            const isActive =
+              currentPath === href ||
+              currentPath.startsWith(href);
+            return (
+              <li>
+                <a
+                  href={href}
+                  class:list={['nav-link', { 'is-active': isActive }]}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button
+        type="button"
+        class="concierge-trigger-btn"
+        data-open-concierge="true"
+        aria-label="Open Moguls Concierge guided project assistant"
+      >
+        <span class="concierge-dot" aria-hidden="true"></span>
+        <span>Concierge</span>
+      </button>
+
+      <a href={`/${locale}/contact/#project-brief`} class="btn btn-primary header-cta">
+        Start a Project
+      </a>
+
+      <button
+        type="button"
+        class="mobile-menu-toggle"
+        id="mobile-menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-navigation-drawer"
+        aria-label="Toggle navigation menu"
+      >
+        <svg class="icon-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="7" x2="21" y2="7"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="17" x2="15" y2="17"></line>
+        </svg>
+        <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Accessible Mobile Navigation Drawer -->
+  <div
+    class="mobile-drawer"
+    id="mobile-navigation-drawer"
+    aria-label="Mobile navigation"
+    hidden
+  >
+    <div class="container-wide mobile-drawer-inner">
+      <nav aria-label="Mobile primary navigation">
+        <ul class="mobile-nav-list">
+          {
+            mainNavigation.map((item) => {
+              const href = `/${locale}/${item.href}`;
+              const isActive =
+                currentPath === href ||
+                currentPath.startsWith(href);
+              return (
+                <li>
+                  <a
+                    href={href}
+                    class:list={['mobile-nav-link', { 'is-active': isActive }]}
+                  >
+                    <span>{item.label}</span>
+                    <span aria-hidden="true" class="mobile-arrow">→</span>
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </nav>
+
+      <div class="mobile-divisions-box">
+        <p class="eyebrow-label" style="color: var(--color-gold); margin-bottom: 0.75rem;">
+          Five Connected Divisions
+        </p>
+        <div class="mobile-division-links">
+          <a href={`/${locale}/services/digital/`}>Moguls Digital</a>
+          <a href={`/${locale}/services/ai/`}>Moguls AI</a>
+          <a href={`/${locale}/services/growth/`}>Moguls Growth</a>
+          <a href={`/${locale}/services/creative/`}>Moguls Creative</a>
+          <a href={`/${locale}/services/strategy/`}>Moguls Strategy</a>
+        </div>
+      </div>
+
+      <div class="mobile-drawer-footer">
+        <a href={`/${locale}/contact/#project-brief`} class="btn btn-primary" style="width: 100%;">
+          Start a Project
+        </a>
+        <button
+          type="button"
+          class="btn btn-secondary-dark"
+          style="width: 100%;"
+          data-open-concierge="true"
+        >
+          Launch Moguls Concierge
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-navigation-drawer');
+    if (!toggle || !drawer) return;
+
+    const closeMenu = () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      drawer.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+    };
+
+    const openMenu = () => {
+      toggle.setAttribute('aria-expanded', 'true');
+      drawer.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      if (expanded) closeMenu();
+      else openMenu();
+    });
+
+    drawer.querySelectorAll('a, [data-open-concierge]').forEach((el) => {
+      el.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+        toggle.focus();
+      }
+    });
+  })();
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background-color: rgba(20, 20, 24, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(247, 245, 240, 0.1);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 76px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  @media (min-width: 980px) {
+    .desktop-nav {
+      display: block;
+    }
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #d5d3de;
+    text-decoration: none;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: var(--color-ivory);
+    background-color: rgba(247, 245, 240, 0.06);
+  }
+
+  .nav-link.is-active {
+    color: var(--color-ivory);
+    background-color: rgba(116, 86, 242, 0.2);
+    font-weight: 600;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .concierge-trigger-btn {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 999px;
+    background: rgba(247, 245, 240, 0.06);
+    border: 1px solid rgba(247, 245, 240, 0.16);
+    color: var(--color-ivory);
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+    min-height: 40px;
+  }
+
+  .concierge-trigger-btn:hover {
+    background: rgba(116, 86, 242, 0.18);
+    border-color: var(--color-violet);
+  }
+
+  .concierge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background-color: var(--color-gold);
+    box-shadow: 0 0 8px rgba(185, 154, 98, 0.8);
+  }
+
+  @media (min-width: 640px) {
+    .concierge-trigger-btn {
+      display: inline-flex;
+    }
+  }
+
+  .header-cta {
+    display: none;
+    padding: 0.625rem 1.25rem;
+    min-height: 42px;
+    font-size: 0.875rem;
+  }
+
+  @media (min-width: 768px) {
+    .header-cta {
+      display: inline-flex;
+    }
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 0.625rem;
+    border: 1px solid rgba(247, 245, 240, 0.18);
+    background: rgba(247, 245, 240, 0.05);
+    color: var(--color-ivory);
+    cursor: pointer;
+  }
+
+  @media (min-width: 980px) {
+    .mobile-menu-toggle {
+      display: none;
+    }
+  }
+
+  .mobile-menu-toggle[aria-expanded='true'] .icon-menu {
+    display: none;
+  }
+  .mobile-menu-toggle[aria-expanded='false'] .icon-close {
+    display: none;
+  }
+
+  .mobile-drawer {
+    position: fixed;
+    top: 76px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(100dvh - 76px);
+    background-color: var(--color-ink);
+    border-top: 1px solid rgba(247, 245, 240, 0.1);
+    overflow-y: auto;
+    z-index: 59;
+  }
+
+  .mobile-drawer-inner {
+    padding-block: 1.75rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgba(247, 245, 240, 0.1);
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.95rem 0.25rem;
+    border-top: 1px solid rgba(247, 245, 240, 0.08);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    text-decoration: none;
+  }
+
+  .mobile-nav-link.is-active {
+    color: var(--color-lavender);
+  }
+
+  .mobile-arrow {
+    color: var(--color-gold);
+    font-size: 1rem;
+  }
+
+  .mobile-divisions-box {
+    background: var(--color-ink-elevated);
+    border: 1px solid rgba(247, 245, 240, 0.1);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+
+  .mobile-division-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.6rem;
+  }
+
+  .mobile-division-links a {
+    font-size: 0.875rem;
+    color: #d2d0dc;
+    text-decoration: none;
+    padding: 0.35rem 0;
+  }
+
+  .mobile-division-links a:hover {
+    color: var(--color-ivory);
+  }
+
+  .mobile-drawer-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+</style>

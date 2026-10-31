@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { enabledLocales } from '../../../i18n/config';
+import { site } from '../../../config/site';
+
+export function getStaticPaths() {
+  return enabledLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.props;
+
+const resources = [
+  {
+    category: 'Interactive Planning Tool',
+    title: 'The Digital Scope & Path Decision Matrix',
+    desc: 'Answer five targeted questions to determine whether your business needs a new website, complete rebuild, application surface, or AI assistant.',
+    href: `/${locale}/#interactive-scope-assessment`,
+    badge: 'Interactive Tool'
+  },
+  {
+    category: 'Executive Research Guide',
+    title: 'What Should a Business Website in Dubai Include?',
+    desc: 'A comprehensive 7-minute guide to regional standards, bilingual information architecture, inquiry handoffs, and performance benchmarks.',
+    href: `/${locale}/insights/what-should-a-business-website-in-dubai-include/`,
+    badge: 'Editorial Guide'
+  },
+  {
+    category: 'Architecture Assessment',
+    title: 'Website Redesign or Complete Rebuild?',
+    desc: 'How leadership teams evaluate whether an existing codebase can be modernized or requires a ground-up technical rebuild.',
+    href: `/${locale}/insights/website-redesign-or-complete-rebuild/`,
+    badge: 'Framework'
+  },
+  {
+    category: 'Applied Intelligence',
+    title: 'Where Should Your Business Start with AI?',
+    desc: 'A practical framework to identify high-ROI operational bottlenecks, avoid speculative pilot traps, and implement guarded AI assistants.',
+    href: `/${locale}/insights/where-should-your-business-start-with-ai/`,
+    badge: 'Technical Paper'
+  }
+];
+---
+
+<BaseLayout
+  title={`Resources & Decision Frameworks | ${site.publicBrand}`}
+  description="Practical tools, architectural frameworks, and research guides published by Mansas Moguls for commercial decision-makers."
+>
+  <main class="min-h-screen bg-[#141418] text-[#F7F5F0] pt-32 pb-24">
+    <div class="content-container">
+      <div class="max-w-3xl mb-16">
+        <span class="text-xs uppercase tracking-widest text-[#7456F2] font-semibold mb-2 block">
+          Knowledge & Strategy Tools · Dubai, UAE
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-[#F7F5F0] mb-4">
+          Resources.
+        </h1>
+        <p class="text-lg text-[#8E8D9A] leading-relaxed">
+          Open architectural frameworks, decision guides, and planning tools developed from our client engagements across the GCC.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+        {resources.map((item) => (
+          <a
+            href={item.href}
+            class="p-8 rounded-2xl bg-[#181820] border border-[#26262F] hover:border-[#7456F2]/50 hover:bg-[#1C1C26] transition-all group flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between gap-4 mb-4">
+                <span class="text-xs uppercase tracking-wider text-[#7456F2] font-semibold">{item.category}</span>
+                <span class="text-[11px] px-2.5 py-1 rounded-full bg-[#22212D] text-[#EAE4FF] border border-[#3A384A]">{item.badge}</span>
+              </div>
+              <h2 class="text-xl font-display font-medium text-[#F7F5F0] group-hover:text-[#FFFFFF] mb-3">
+                {item.title}
+              </h2>
+              <p class="text-sm text-[#8E8D9A] leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
+            <span class="text-xs font-semibold text-[#7456F2] group-hover:text-[#9A82FC] mt-6 inline-flex items-center gap-1">
+              Access Resource →
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+</BaseLayout>

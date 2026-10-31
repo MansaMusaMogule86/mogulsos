@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { enabledLocales } from '../../../i18n/config';
+import { site } from '../../../config/site';
+
+export function getStaticPaths() {
+  return enabledLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.props;
+
+const faqCategories = [
+  {
+    category: 'Engagements & Initiation',
+    items: [
+      {
+        q: 'How does an engagement with Mansas Moguls begin?',
+        a: 'Every engagement begins with an initial scope alignment consultation under mutual NDA. We review your objectives, current technology bottlenecks, and commercial expectations before issuing a detailed, fixed-deliverable Statement of Work (SOW).'
+      },
+      {
+        q: 'Where are your teams and leadership based?',
+        a: 'Mansas Moguls L.L.C-FZ is headquartered in Dubai, United Arab Emirates. Our partners, technical directors, and lead strategists are based locally, enabling face-to-face working sessions across Dubai, Abu Dhabi, and the wider GCC region.'
+      },
+      {
+        q: 'Do you work with international clients outside the UAE?',
+        a: 'Yes. While our headquarters are in Dubai, we regularly deliver digital architecture, brand systems, and AI workflows for high-growth enterprises in London, New York, Riyadh, and Singapore.'
+      }
+    ]
+  },
+  {
+    category: 'Commercial Terms & Budgets',
+    items: [
+      {
+        q: 'How do you price your engagements?',
+        a: 'We operate primarily on transparent, milestone-based fixed fees defined in advance. We do not bill open-ended hourly rates that incentivize inefficiency. For ongoing stewardship, we offer structured quarterly retained advisory and engineering tiers.'
+      },
+      {
+        q: 'What currencies do you accept for billing?',
+        a: 'We bill in UAE Dirhams (AED) and US Dollars (USD). Invoices are settled via standard UAE corporate bank wire transfer with full VAT invoicing compliance.'
+      }
+    ]
+  },
+  {
+    category: 'Engineering & Intellectual Property',
+    items: [
+      {
+        q: 'Who owns the intellectual property and code upon project completion?',
+        a: 'You do. Upon full settlement of contract milestones, 100% of custom source code, design system tokens, Figma files, and brand assets transfer entirely to your organization without recurring software lock-in.'
+      },
+      {
+        q: 'What technology stack do you recommend for commercial websites?',
+        a: 'We architect flagship surfaces using modern, decoupled stacks—principally Astro, React, and TypeScript deployed to global edge CDNs. This architecture delivers near-instant page loads (Core Web Vitals 100/100), superior technical SEO, and virtually impenetrable security compared to monolithic CMS platforms.'
+      },
+      {
+        q: 'How do you ensure AI assistants and automations remain secure?',
+        a: 'We implement scoped Retrieval-Augmented Generation (RAG) with hard topic guardrails, hallucination filters, and human-in-the-loop sign-off gates. Your proprietary corporate knowledge is never shared with public model training datasets.'
+      }
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={`Frequently Asked Questions | ${site.publicBrand}`}
+  description="Answers to common questions regarding engagements, pricing, timelines, technology stacks, and intellectual property with Mansas Moguls in Dubai."
+>
+  <main class="min-h-screen bg-[#141418] text-[#F7F5F0] pt-32 pb-24">
+    <div class="content-container">
+      <div class="max-w-3xl mb-16">
+        <span class="text-xs uppercase tracking-widest text-[#7456F2] font-semibold mb-2 block">
+          Advisory & Transparency
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight text-[#F7F5F0] mb-4">
+          Frequently Asked Questions.
+        </h1>
+        <p class="text-lg text-[#8E8D9A] leading-relaxed">
+          Clear answers about commissioning work, engagement structures, intellectual property, and our technical standards in Dubai.
+        </p>
+      </div>
+
+      <div class="space-y-16 max-w-4xl">
+        {faqCategories.map((cat) => (
+          <div class="space-y-6">
+            <h2 class="text-xl font-display font-semibold text-[#7456F2] pb-2 border-b border-[#26262F]">
+              {cat.category}
+            </h2>
+            <div class="space-y-6">
+              {cat.items.map((item) => (
+                <div class="p-6 rounded-2xl bg-[#181820] border border-[#26262F]">
+                  <h3 class="text-lg font-display font-medium text-[#F7F5F0] mb-2.5">
+                    {item.q}
+                  </h3>
+                  <p class="text-sm md:text-base text-[#8E8D9A] leading-relaxed">
+                    {item.a}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-20 pt-10 border-t border-[#26262F] flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <h3 class="text-lg font-display font-medium text-[#F7F5F0]">Have a question not covered here?</h3>
+          <p class="text-sm text-[#8E8D9A]">Connect directly with our advisory desk for confidential guidance.</p>
+        </div>
+        <a href={`/${locale}/contact/#project-brief`} class="btn btn-primary text-xs shrink-0">
+          Inquire Directly →
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

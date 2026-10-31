@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeIntro from '../hero/HomeIntro.astro';
+import DivisionStickyStack from './DivisionStickyStack';
+import CapabilitiesInContext from './CapabilitiesInContext.astro';
+import WorkShowcaseSection from './WorkShowcaseSection.astro';
+import ProcessSection from './ProcessSection.astro';
+import LeadMagnetQuestionnaire from './LeadMagnetQuestionnaire';
+import InsightsSection from './InsightsSection.astro';
+import FinalCTASection from './FinalCTASection.astro';
+import type { Locale } from '../../i18n/config';
+
+interface Props {
+  locale?: Locale;
+  canonicalPath?: string;
+}
+
+const { locale = 'en', canonicalPath } = Astro.props;
+---
+
+<BaseLayout
+  title="We Architect What’s Next"
+  description="Websites, applications, AI solutions, and brand experiences for ambitious businesses in Dubai."
+  locale={locale}
+  canonicalPath={canonicalPath}
+>
+  <HomeIntro locale={locale} />
+  <DivisionStickyStack client:load locale={locale} />
+  <CapabilitiesInContext locale={locale} />
+  <WorkShowcaseSection locale={locale} />
+  <ProcessSection locale={locale} />
+  <LeadMagnetQuestionnaire client:visible locale={locale} />
+  <InsightsSection locale={locale} />
+  <FinalCTASection locale={locale} />
+</BaseLayout>
+
